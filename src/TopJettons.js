@@ -40,7 +40,7 @@ function Jetton(props) {
       <TableCell className="jettons_cell">
         <Grid container wrap="nowrap">
           <Grid xs="auto">
-            <img src={`${process.env.REACT_APP_API_ROOT}v1/jettons/image/${jetton.address}`}
+            <img src={`${API_ROOT}v1/jettons/image/${jetton.address}`}
                  className="jetton_icon" alt={jetton.name} id={`image_${jetton.address}`}/>
           </Grid>
           <Grid xs={8}><Typography variant="h6">{jetton.name}</Typography></Grid>
@@ -76,28 +76,31 @@ function TopJettons(props) {
 
   return (
     <Container sx={{pt: 5, pb:6}}>
-      <TableContainer>
-        <Table sx={{ minWidth: 650, color: 'text.primary', borderCollapse: 'separate', borderSpacing: '0px 10px' }} size="small" aria-label="a dense table" className="jettons_table">
-          <TableHead>
-            <TableRow>
-              <TableCell className="jettons_cell">Jetton</TableCell>
-              <TableCell className="jettons_cell">Price (TON / jetton)</TableCell>
-              <TableCell className="jettons_cell">Volume 24h (TON)</TableCell>
-              <TableCell className="jettons_cell">Active owners 24h</TableCell>
-              <TableCell className="jettons_cell">Total holders</TableCell>
-              <TableCell className="jettons_cell">Created</TableCell>
-            </TableRow>
-          </TableHead>
-          <TableBody>
-            {
-             jettons !== undefined ? jettons.map((jetton, idx) => (<Jetton
-               key={idx}
-               jetton={jetton}
-             />)) : <CircularProgress/>
-            }
-          </TableBody>
-        </Table>
-      </TableContainer>
+      {
+        jettons !== undefined && jettons.length > 0 ? (<TableContainer>
+            <Table sx={{ minWidth: 650, color: 'text.primary', borderCollapse: 'separate', borderSpacing: '0px 10px' }} size="small" aria-label="a dense table" className="jettons_table">
+              <TableHead>
+                <TableRow>
+                  <TableCell className="jettons_cell">Jetton</TableCell>
+                  <TableCell className="jettons_cell">Price (TON / jetton)</TableCell>
+                  <TableCell className="jettons_cell">Volume 24h (TON)</TableCell>
+                  <TableCell className="jettons_cell">Active owners 24h</TableCell>
+                  <TableCell className="jettons_cell">Total holders</TableCell>
+                  <TableCell className="jettons_cell">Created</TableCell>
+                </TableRow>
+              </TableHead>
+              <TableBody>
+                {jettons.map((jetton, idx) => (<Jetton
+                  key={idx}
+                  jetton={jetton}
+                />))}
+              </TableBody>
+            </Table>
+          </TableContainer>
+          ) :  <Box>
+          <Typography variant="h3">Analyzing Blockchain transactions...</Typography>
+          <CircularProgress color="primary"/>
+        </Box>}
     </Container>
   )
 }
