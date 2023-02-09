@@ -25,7 +25,7 @@ function ValueWithTrend(props) {
       <Grid xs="auto">
         {percent === null ? (
           <NewIcon color="primary" className="value_new"/>
-        ) : (<Typography variant="h6" className={`value_${percent > 0 ? 'growth' : 'decrease'}`}>
+        ) : percent ===0 ? null : (<Typography variant="h6" className={`value_${percent > 0 ? 'growth' : 'decrease'}`}>
           {percent} %
         </Typography>)}
       </Grid>
