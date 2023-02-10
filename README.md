@@ -1,23 +1,41 @@
-# Create React App
+# re:doubt
 
-This directory is a brief example of a [Create React App](https://github.com/facebook/create-react-app) site.
+re:doubt is a powerful tool for TON blockchain research, complete with all the tools you need to discover, explore, and visualize vast amounts of blockchain data; lets anyone, anywhere learn about crypto hacks, scams, and fraudulent activity so they can more safely participate in the growing crypto economy.
 
-## Available Scripts
+## 🔧 Setting up Local Development
 
-In the project directory, you can run:
+Required:
 
-### `npm start`
+- [Node v16](https://nodejs.org/download/release/latest-v16.x/)
+- [Yarn](https://classic.yarnpkg.com/en/docs/install/)
+- [Git](https://git-scm.com/downloads)
 
-Runs the app in the development mode. Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+Make sure that:
 
-The page will reload when you make changes. You may also see any lint errors in the console.
+- Contracts are built and deployed to a live localhost network (`contracts/yarn chain`)
+- Artifacts and .env are synced (`home/sync.sh`)
+- Backend is running
 
-### `npm test`
+Install the deps and start a dev server:
 
-Launches the test runner in the interactive watch mode. See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+```bash
+$ yarn
+$ yarn dev
+```
 
-### `npm run build`
+The site is now running at `http://localhost:3006`!
+Open the source code and start editing!
+Make sure your Metamask chainId is 31337. It is 1337 by default.
 
-Builds the app for production to the `build` folder.
+## Architecture/Layout
 
-It correctly bundles React in production mode and optimizes the build for the best performance. The build is minified and the filenames include the hashes.
+The app is written in [React](https://reactjs.org/) and [NextJS](https://nextjs.org/).
+
+The files/folder structure are a **WIP** and may contain some unused files. The project is rapidly evolving so please update this section if you see it is inaccurate!
+
+```
+./src
+├── modules/      // App logic page
+├── components/   // Common components
+└── hooks/        // Custom hooks with common logic
+```
