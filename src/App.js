@@ -4,7 +4,13 @@ import TopJettons from "./TopJettons";
 import {Box, Container, Grid, Link, Typography} from "@mui/material";
 import GitHubIcon from '@mui/icons-material/GitHub';
 import TelegramIcon from '@mui/icons-material/Telegram';
+import ReactGA from 'react-ga';
+const TRACKING_ID = process.env.REACT_APP_GA_TRACKING_ID;
 
+if (TRACKING_ID !== undefined) {
+  ReactGA.initialize(TRACKING_ID);
+  ReactGA.pageview(window.location.pathname + window.location.search);
+}
 
 function App() {
   return (
