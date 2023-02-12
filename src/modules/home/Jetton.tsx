@@ -42,16 +42,16 @@ export const Jetton = (props: any) => {
       <TableCell className="jettons_cell">
         <ValueWithTrend data={jetton.totalHolders} />
       </TableCell>
-      <TableCell className="jettons_cell">
-        {jetton.sinceCreationSeconds > 86400 * 30 ? (
-          <Typography variant="h6">1+&nbsp;month&nbsp;ago</Typography>
-        ) : (
-          <Typography variant="h6">
-            {(jetton.sinceCreationSeconds / 86400).toFixed(0)}
-            &nbsp;days&nbsp;ago
-          </Typography>
-        )}
-      </TableCell>
+      {/*<TableCell className="jettons_cell">*/}
+      {/*  {jetton.sinceCreationSeconds > 86400 * 30 ? (*/}
+      {/*    <Typography variant="h6">1+&nbsp;month&nbsp;ago</Typography>*/}
+      {/*  ) : (*/}
+      {/*    <Typography variant="h6">*/}
+      {/*      {(jetton.sinceCreationSeconds / 86400).toFixed(0)}*/}
+      {/*      &nbsp;days&nbsp;ago*/}
+      {/*    </Typography>*/}
+      {/*  )}*/}
+      {/*</TableCell>*/}
     </TableRow>
   );
 };

@@ -2,7 +2,7 @@ import {
   Box,
   Button,
   CircularProgress,
-  Container,
+  Container, IconButton,
   Menu,
   MenuItem,
   Table,
@@ -15,12 +15,14 @@ import {
 } from "@mui/material";
 import { MouseEvent, useEffect, useState } from "react";
 import CurrencyExchangeIcon from "@mui/icons-material/CurrencyExchange";
+import HelpIcon from '@mui/icons-material/Help';
 import { COINGECKO_API } from "src/constants/api";
 import { Jetton } from "./Jetton";
 import { FC } from "react";
 import { useQuery } from "react-query";
 import { apiClient } from "src/api/client";
 import axios from "axios";
+import {Platform} from "./Platform";
 
 type ValueWithPercentage = {
   value: number;
@@ -33,17 +35,23 @@ type JettonInterface = {
   price: ValueWithPercentage;
   marketVolume: ValueWithPercentage;
   activeOwners24h: ValueWithPercentage;
-  sinceCreationSeconds: number;
+};
+
+type PlatformInterface = {
+  name: string;
+  marketVolume: number;
 };
 
 // TODO: map this to routes properly
 type ApiResponse = {
   jettons: JettonInterface[];
+  platforms: PlatformInterface[];
   total: number;
 };
 
 export const TopJettons: FC = () => {
   const [jettons, setJettons] = useState<JettonInterface[]>([]);
+  const [platforms, setPlatforms] = useState<PlatformInterface[]>([]);
   const [totalVolume, setTotalVolume] = useState<number | undefined>(undefined);
   const [currencyRates, setCurrencyRates] = useState(undefined);
   const [currency, setCurrency] = useState<string>("TON");
@@ -59,6 +67,7 @@ export const TopJettons: FC = () => {
     if (isFetched) {
       if (data?.data?.jettons) {
         setJettons(data.data.jettons);
+        setPlatforms(data.data.platforms.sort((p1, p2) => p2.marketVolume - p1.marketVolume));
       }
 
       if (data?.data.total) {
@@ -125,6 +134,14 @@ export const TopJettons: FC = () => {
               {currency}
             </Button>
           </Typography>
+          <Container>
+            {platforms.map((platform, key) => (
+                <Platform key={`platform-${key}`}
+                          name={platform.name}
+                          marketVolume={currencyFormatter(platform.marketVolume, 0)}>
+                </Platform>
+            ))}
+          </Container>
           <Menu
             id="simple-menu"
             anchorEl={anchorEl}
@@ -171,7 +188,7 @@ export const TopJettons: FC = () => {
                     Active owners 24h
                   </TableCell>
                   <TableCell className="jettons_cell">Total holders</TableCell>
-                  <TableCell className="jettons_cell">Created</TableCell>
+                  {/*<TableCell className="jettons_cell">Created</TableCell>*/}
                 </TableRow>
               </TableHead>
               <TableBody>

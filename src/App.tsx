@@ -19,19 +19,16 @@ const App = () => {
     <QueryClientProvider client={queryClient}>
       <div className="App">
         <header className="App-header">
-          <img
-            src={"./logo.png"}
-            className="App-logo"
-            alt="logo"
-            style={{ maxHeight: 200 }}
-          />
-          <Typography variant="h4">
-            Real-time security & operational monitoring
-          </Typography>
+          {/*<img*/}
+          {/*  src={"./logo.png"}*/}
+          {/*  className="App-logo"*/}
+          {/*  alt="logo"*/}
+          {/*  style={{ maxHeight: 200 }}*/}
+          {/*/>*/}
           <TopJettons />
-          <Typography variant="h3">
-            More TON Jetton insights coming soon...
-          </Typography>
+          {/*<Typography variant="h3">*/}
+          {/*  More TON Jetton insights coming soon...*/}
+          {/*</Typography>*/}
           <Container>
             <Grid container spacing={2}>
               <Grid item xs={4}>
