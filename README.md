@@ -6,15 +6,15 @@ re:doubt is a powerful tool for TON blockchain research, complete with all the t
 
 Required:
 
-- [Node v16](https://nodejs.org/download/release/latest-v16.x/)
-- [Yarn](https://classic.yarnpkg.com/en/docs/install/)
-- [Git](https://git-scm.com/downloads)
+-   [Node v16](https://nodejs.org/download/release/latest-v16.x/)
+-   [Yarn](https://classic.yarnpkg.com/en/docs/install/)
+-   [Git](https://git-scm.com/downloads)
 
 Make sure that:
 
-- Contracts are built and deployed to a live localhost network (`contracts/yarn chain`)
-- Artifacts and .env are synced (`home/sync.sh`)
-- Backend is running
+-   Contracts are built and deployed to a live localhost network (`contracts/yarn chain`)
+-   Artifacts and .env are synced (`home/sync.sh`)
+-   Backend is running
 
 Install the deps and start a dev server:
 

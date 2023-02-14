@@ -1,0 +1,41 @@
+{
+	"parser": "@typescript-eslint/parser",
+	"plugins": ["prettier"],
+	"extends": ["ts-standard", "plugin:prettier/recommended", "prettier"],
+	"parserOptions": {
+		"ecmaVersion": 2018,
+		"project": "./tsconfig.eslint.json"
+	},
+	"rules": {
+		"indent": 0,
+		"semi": ["error", "never"],
+		"prettier/prettier": [
+			2,
+			{
+				"printWidth": 160,
+				"tabWidth": 4,
+				"useTabs": true,
+				"semi": false,
+				"singleQuote": true,
+				"trailingComma": "none",
+				"bracketSpacing": true,
+				"arrowParens": "always",
+				"proseWrap": "preserve",
+				"htmlWhitespaceSensitivity": "ignore"
+			}
+		],
+		"padding-line-between-statements": [
+			"error",
+			{ "blankLine": "always", "prev": ["const", "let", "var"], "next": "*" },
+			{
+				"blankLine": "any",
+				"prev": ["const", "let", "var"],
+				"next": ["const", "let", "var"]
+			}
+		],
+		"camelcase": 0,
+		"no-tabs": 0,
+		"no-multi-spaces": 1,
+		"no-use-before-define": 0
+	}
+}
