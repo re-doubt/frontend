@@ -1,0 +1,25 @@
+name: Build and deploy frontend
+
+on:
+  workflow_dispatch:
+    inputs:
+      environment:
+        description: 'Environment to deploy'
+        type: environment
+        required: true
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@main
+    - name: Build and deploy app
+      uses: razzkumar/pr-automation-with-s3@v1.0.2
+      env:
+        AWS_S3_BUCKET: ${{ secrets.AWS_S3_BUCKET }} 
+        AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+        AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+        AWS_REGION: "us-east-1"
+        SRC_FOLDER: "out"
+        ACTION: 'deploy'
+        BUILD_COMMAND: "REACT_APP_GA_TRACKING_ID=${{ secrets.GOOGLE_ANALYTICS_ID }} yarn build"
