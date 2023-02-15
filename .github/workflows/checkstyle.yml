@@ -1,0 +1,20 @@
+name: Code style check
+
+on: pull_request
+
+jobs:
+  checkCodestyle:
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v1
+    - name: Use Node.js ${{ matrix.node-version }}
+      uses: actions/setup-node@v1
+      with:
+        node-version: 16
+    - name: Install, build, test
+      run: |
+        yarn install 
+        yarn lint
+      env:
+        CI: true
