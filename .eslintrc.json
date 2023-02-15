@@ -6,6 +6,7 @@
 		"ecmaVersion": 2018,
 		"project": "./tsconfig.eslint.json"
 	},
+	"ignorePatterns": [".github"],
 	"rules": {
 		"indent": 0,
 		"semi": ["error", "never"],
