@@ -23,4 +23,5 @@ jobs:
         AWS_REGION: "us-east-1"
         SRC_FOLDER: "out"
         ACTION: 'deploy'
+        IS_BUILD: 'true'
         BUILD_COMMAND: "REACT_APP_GA_TRACKING_ID=${{ secrets.GOOGLE_ANALYTICS_ID }} yarn build"
