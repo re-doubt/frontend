@@ -2,14 +2,15 @@ name: Build and deploy frontend
 
 on:
   workflow_dispatch:
-    inputs:
-      environment:
-        description: 'Environment to deploy'
-        type: environment
-        required: true
+#    inputs:
+#      environment:
+#        description: 'Environment to deploy'
+#        type: environment
+#        required: true
 
 jobs:
   deploy:
+    environment: beta
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@main
