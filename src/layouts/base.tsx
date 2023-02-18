@@ -4,12 +4,13 @@ import { Header } from 'src/components/common/header/header'
 import '../styles/reset.css'
 import '../styles/globals.css'
 import { styled } from '@mui/material/styles'
+import { Footer } from 'src/components/common/footer/footer'
 
 interface IBaseLayout {
 	children: ReactNode
 }
 
-const StyledLayout = styled('main')(
+const StyledLayout = styled('div')(
 	({ theme }) => `
 	padding: 60px;
 	@media (max-width: ${theme.breakpoints.values.xl}px) {
@@ -22,6 +23,10 @@ const StyledLayout = styled('main')(
 `
 )
 
+const Main = styled('main')`
+	padding: 36px 0;
+`
+
 export const BaseLayout: FC<IBaseLayout> = ({ children, ...rest }) => {
 	return (
 		<StyledLayout {...rest}>
@@ -29,9 +34,10 @@ export const BaseLayout: FC<IBaseLayout> = ({ children, ...rest }) => {
 			<Header />
 
 			{/* Main section */}
-			{children}
+			<Main>{children}</Main>
 
 			{/* Footer section */}
+			<Footer />
 		</StyledLayout>
 	)
 }
