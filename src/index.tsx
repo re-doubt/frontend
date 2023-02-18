@@ -7,6 +7,8 @@ import { TRACKING_ID } from './constants/analytics'
 import { QueryClient, QueryClientProvider } from 'react-query'
 import { Home } from './pages/home'
 import { createBrowserRouter, RouterProvider } from 'react-router-dom'
+import { ThemeProvider } from '@mui/material'
+import { createTheme } from '@mui/material/styles'
 
 if (TRACKING_ID !== undefined) {
 	ReactGA.initialize(TRACKING_ID)
@@ -22,10 +24,36 @@ const router = createBrowserRouter([
 
 const queryClient = new QueryClient()
 
+const theme = createTheme({
+	palette: {
+		primary: {
+			main: '#0088CC'
+		},
+		secondary: {
+			main: '#E7EFF7'
+		},
+		error: {
+			main: '#EC5540'
+		},
+		success: {
+			main: '#40EC51'
+		},
+		text: {
+			disabled: '#41414a',
+			primary: '#232328',
+			secondary: '#000000'
+		},
+		contrastThreshold: 3,
+		tonalOffset: 0.2
+	}
+})
+
 ReactDOM.render(
 	<React.StrictMode>
 		<QueryClientProvider client={queryClient}>
-			<RouterProvider router={router} />
+			<ThemeProvider theme={theme}>
+				<RouterProvider router={router} />
+			</ThemeProvider>
 		</QueryClientProvider>
 	</React.StrictMode>,
 	document.getElementById('root')
