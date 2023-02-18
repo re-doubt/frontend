@@ -1,12 +1,32 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
-import './index.css'
-import App from './App'
 import reportWebVitals from './reportWebVitals'
+import ReactGA from 'react-ga'
+
+import { TRACKING_ID } from './constants/analytics'
+import { QueryClient, QueryClientProvider } from 'react-query'
+import { Home } from './pages/home'
+import { createBrowserRouter, RouterProvider } from 'react-router-dom'
+
+if (TRACKING_ID !== undefined) {
+	ReactGA.initialize(TRACKING_ID)
+	ReactGA.pageview(window.location.pathname + window.location.search)
+}
+
+const router = createBrowserRouter([
+	{
+		path: '/',
+		element: <Home />
+	}
+])
+
+const queryClient = new QueryClient()
 
 ReactDOM.render(
 	<React.StrictMode>
-		<App />
+		<QueryClientProvider client={queryClient}>
+			<RouterProvider router={router} />
+		</QueryClientProvider>
 	</React.StrictMode>,
 	document.getElementById('root')
 )
