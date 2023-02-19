@@ -1,18 +1,91 @@
 import { styled } from '@mui/material/styles'
-import Pagination from '@mui/material/Pagination'
-import PaginationItem from '@mui/material/PaginationItem'
 import { JettonInterface } from 'src/api/types'
-import type { ChangeEvent, FC } from 'react'
-import { GridRowsProp, GridColDef, DataGrid, useGridApiContext, useGridSelector, gridPageSelector, gridPageCountSelector } from '@mui/x-data-grid'
+import type { FC } from 'react'
+import { GridRowsProp, GridColDef, DataGrid, GridRenderCellParams } from '@mui/x-data-grid'
+import { Jetton } from './cells/jetton'
+import { CustomPagination } from './components/pagination'
 
 interface ITable {
 	jettons: JettonInterface[]
 }
 
+const Wrapper = styled('div')`
+	width: 100%;
+	height: 1000px;
+`
+
+const ColoredText = styled('p', {
+	shouldForwardProp: (prop) => prop !== 'impact'
+})<{ impact: boolean }>(
+	({ impact, theme }) => `
+     color: ${impact ? theme.palette.success.main : theme.palette.error.main};
+   `
+)
+
+const JettonsTable: FC<ITable> = ({ jettons }) => {
+	const rows: GridRowsProp = jettons.map((jetton, index) => ({
+		data: jetton,
+		id: index + 1,
+		name: jetton.name,
+		price: jetton.price.value,
+		price24h: jetton.price.percent,
+		marketVolume: jetton.marketVolume.value,
+		totalHolders: jetton.totalHolders.value,
+		activeOwners24h: jetton.activeOwners24h.value
+	}))
+
+	// @ts-ignore
+	const columns: GridColDef = [
+		{ field: 'id', headerName: '#', width: 80, hideable: false },
+		{
+			field: 'name',
+			headerName: 'Jetton',
+			width: 160,
+			renderCell: ({ row }: GridRenderCellParams<string>) => {
+				return <Jetton symbol={row.data.name} address={row.data.address} />
+			}
+		},
+		{ field: 'price', headerName: 'Price', width: 220, hideable: false },
+		{
+			field: 'price24h',
+			headerName: 'Price 24h',
+			width: 220,
+			hideable: false,
+			renderCell: ({ value }: GridRenderCellParams<string>) => {
+				return <ColoredText impact={parseInt(value!, 10) > 0}>{value}%</ColoredText>
+			}
+		},
+		{ field: 'marketVolume', headerName: 'Volume 24h', width: 220, hideable: false },
+		{ field: 'activeOwners24h', headerName: 'Owners 24h', width: 220, hideable: false },
+		{ field: 'totalHolders', headerName: 'Total Holders', width: 220, hideable: false }
+	]
+
+	return (
+		<Wrapper>
+			<StyledDataGrid
+				pageSize={10}
+				rowsPerPageOptions={[10]}
+				density="comfortable"
+				components={{
+					Pagination: CustomPagination
+				}}
+				getRowHeight={() => 'auto'}
+				getEstimatedRowHeight={() => 200}
+				rows={rows}
+				// @ts-ignore
+				columns={columns}
+			/>
+		</Wrapper>
+	)
+}
+
+export default JettonsTable
+
 const StyledDataGrid = styled(DataGrid)(({ theme }) => ({
 	border: 0,
-	color: theme.palette.mode === 'light' ? 'rgba(0,0,0,.85)' : 'rgba(255,255,255,0.85)',
+	color: theme.palette.mode === 'light' ? theme.palette.text.primary : 'rgba(255,255,255,0.85)',
 	fontFamily: ['Inter', 'sans-serif'].join(','),
+	fontSize: '20px',
 	WebkitFontSmoothing: 'auto',
 	letterSpacing: 'normal',
 	'& .MuiDataGrid-columnsContainer': {
@@ -35,67 +108,9 @@ const StyledDataGrid = styled(DataGrid)(({ theme }) => ({
 	},
 	'& .MuiPaginationItem-root': {
 		borderRadius: 0
-	}
+	},
+	'&.MuiDataGrid-root--densityCompact .MuiDataGrid-cell': { padding: '8px' },
+	'&.MuiDataGrid-root--densityStandard .MuiDataGrid-cell': { padding: '16px' },
+	'&.MuiDataGrid-root--densityComfortable .MuiDataGrid-cell': { padding: '24px' },
+	'&.MuiDataGrid-root--densityComfortable .MuiDataGrid-columnHeader': { padding: '24px' }
 }))
-
-function CustomPagination() {
-	const apiRef = useGridApiContext()
-	const page = useGridSelector(apiRef, gridPageSelector)
-	const pageCount = useGridSelector(apiRef, gridPageCountSelector)
-
-	return (
-		<Pagination
-			color="primary"
-			variant="outlined"
-			shape="rounded"
-			page={page + 1}
-			count={pageCount}
-			// @ts-expect-error
-			renderItem={(props2) => <PaginationItem {...props2} disableRipple />}
-			onChange={(event: ChangeEvent<unknown>, value: number) => apiRef.current.setPage(value - 1)}
-		/>
-	)
-}
-
-const Wrapper = styled('div')`
-	width: 100%;
-	height: 625px;
-`
-
-const JettonsTable: FC<ITable> = ({ jettons }) => {
-	const rows: GridRowsProp = jettons.map((jetton, index) => ({
-		id: index + 1,
-		name: jetton.name,
-		price: jetton.price.value,
-		marketVolume: jetton.marketVolume.value,
-		totalHolders: jetton.totalHolders.value,
-		activeOwners24h: jetton.activeOwners24h.value
-	}))
-
-	// @ts-ignore
-	const columns: GridColDef = [
-		{ field: 'id', headerName: '#' },
-		{ field: 'name', headerName: 'Jetton' },
-		{ field: 'price', headerName: 'Price' },
-		{ field: 'marketVolume', headerName: 'Volume 24h' },
-		{ field: 'activeOwners24h', headerName: 'Owners 24h' },
-		{ field: 'totalHolders', headerName: 'Total Holders' }
-	]
-
-	return (
-		<Wrapper>
-			<StyledDataGrid
-				pageSize={10}
-				rowsPerPageOptions={[10]}
-				components={{
-					Pagination: CustomPagination
-				}}
-				rows={rows}
-				// @ts-ignore
-				columns={columns}
-			/>
-		</Wrapper>
-	)
-}
-
-export default JettonsTable
