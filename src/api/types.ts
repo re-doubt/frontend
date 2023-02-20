@@ -3,7 +3,7 @@ export type ValueWithPercentage = {
 	percent: number
 }
 
-export type JettonInterface = {
+export type IJetton = {
 	name: string
 	address: string
 	price: ValueWithPercentage
@@ -12,14 +12,14 @@ export type JettonInterface = {
 	activeOwners24h: ValueWithPercentage
 }
 
-export type PlatformInterface = {
+export type IPlatform = {
 	name: string
 	marketVolume: number
 }
 
 // TODO: map this to routes properly
 export type ApiResponse = {
-	jettons: JettonInterface[]
-	platforms: PlatformInterface[]
+	jettons: IJetton[]
+	platforms: IPlatform[]
 	total: number
 }

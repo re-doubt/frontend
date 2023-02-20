@@ -1,12 +1,13 @@
 import { styled } from '@mui/material/styles'
-import { JettonInterface } from 'src/api/types'
+import { IJetton } from 'src/api/types'
 import type { FC } from 'react'
 import { GridRowsProp, GridColDef, DataGrid, GridRenderCellParams } from '@mui/x-data-grid'
 import { Jetton } from './cells/jetton'
 import { CustomPagination } from './components/pagination'
+import { Price } from './cells/price'
 
 interface ITable {
-	jettons: JettonInterface[]
+	jettons: IJetton[]
 }
 
 const Wrapper = styled('div')`
@@ -40,12 +41,20 @@ const JettonsTable: FC<ITable> = ({ jettons }) => {
 		{
 			field: 'name',
 			headerName: 'Jetton',
-			width: 160,
+			width: 220,
 			renderCell: ({ row }: GridRenderCellParams<string>) => {
 				return <Jetton symbol={row.data.name} address={row.data.address} />
 			}
 		},
-		{ field: 'price', headerName: 'Price', width: 220, hideable: false },
+		{
+			field: 'price',
+			headerName: 'Price',
+			width: 220,
+			hideable: false,
+			renderCell: ({ value }: GridRenderCellParams<string>) => {
+				return <Price isFloat={true} value={value!} />
+			}
+		},
 		{
 			field: 'price24h',
 			headerName: 'Price 24h',
@@ -55,7 +64,15 @@ const JettonsTable: FC<ITable> = ({ jettons }) => {
 				return <ColoredText impact={parseInt(value!, 10) > 0}>{value}%</ColoredText>
 			}
 		},
-		{ field: 'marketVolume', headerName: 'Volume 24h', width: 220, hideable: false },
+		{
+			field: 'marketVolume',
+			headerName: 'Volume 24h',
+			width: 220,
+			hideable: false,
+			renderCell: ({ value }: GridRenderCellParams<string>) => {
+				return <Price value={value!} />
+			}
+		},
 		{ field: 'activeOwners24h', headerName: 'Owners 24h', width: 220, hideable: false },
 		{ field: 'totalHolders', headerName: 'Total Holders', width: 220, hideable: false }
 	]
@@ -85,7 +102,7 @@ const StyledDataGrid = styled(DataGrid)(({ theme }) => ({
 	border: 0,
 	color: theme.palette.mode === 'light' ? theme.palette.text.primary : 'rgba(255,255,255,0.85)',
 	fontFamily: ['Inter', 'sans-serif'].join(','),
-	fontSize: '20px',
+	fontSize: '18px',
 	WebkitFontSmoothing: 'auto',
 	letterSpacing: 'normal',
 	'& .MuiDataGrid-columnsContainer': {
@@ -93,15 +110,6 @@ const StyledDataGrid = styled(DataGrid)(({ theme }) => ({
 	},
 	'& .MuiDataGrid-iconSeparator': {
 		display: 'none'
-	},
-	'& .MuiDataGrid-columnHeader, .MuiDataGrid-cell': {
-		borderRight: `1px solid ${theme.palette.mode === 'light' ? '#f0f0f0' : '#303030'}`
-	},
-	'& .MuiDataGrid-columnHeader:first-child, .MuiDataGrid-cell:first-child': {
-		borderRight: `1px solid ${theme.palette.mode === 'light' ? '#f0f0f0' : '#303030'}`
-	},
-	'& .MuiDataGrid-columnsContainer, .MuiDataGrid-cell': {
-		borderBottom: `1px solid ${theme.palette.mode === 'light' ? '#f0f0f0' : '#303030'}`
 	},
 	'& .MuiDataGrid-cell': {
 		color: theme.palette.mode === 'light' ? 'rgba(0,0,0,.85)' : 'rgba(255,255,255,0.65)'

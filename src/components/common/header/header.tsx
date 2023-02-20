@@ -8,16 +8,23 @@ export const Header: FC = () => {
 		<StyledHeader>
 			<LogoWrapper>
 				<Logo src="img/common/header/logo.svg" />
-				<Title>re:doubt</Title>
+				<TitleWithPrefix>
+					<Title>re:doubt</Title>
+					<Prefix>v.0.1</Prefix>
+				</TitleWithPrefix>
 			</LogoWrapper>
 
-			{/* Button in design here, but we don't have the feature yet */}
+			<Links>
+				<StyledLink>Jettons</StyledLink>
+				<StyledLink>Platforms</StyledLink>
+			</Links>
 		</StyledHeader>
 	)
 }
 
 const StyledHeader = styled('header')`
 	display: flex;
+	align-items: center;
 	justify-content: space-between;
 `
 
@@ -30,7 +37,6 @@ const Title = styled('h3')(
 	({ theme }) => `
 	font-weight: 600;
 	font-size: 32px;
-	line-height: 32px;
 	color: ${theme.palette.primary.main};
 	margin-left: 10px;
 `
@@ -40,4 +46,36 @@ const LogoWrapper = styled('div')`
 	display: flex;
 	justify-content: flex-start;
 	align-items: center;
+`
+const Links = styled('div')`
+	display: grid;
+	grid-template-columns: repeat(2, max-content);
+	grid-gap: 32px;
+	align-items: center;
+`
+
+const StyledLink = styled('a')(
+	({ theme }) => `
+	font-weight: 600;
+	font-size: 20px;
+	line-height: 24px;
+	color: ${theme.palette.text.primary}
+	`
+)
+
+const Prefix = styled('span')(
+	({ theme }) => `
+	font-weight: 400;
+	font-size: 12px;
+	line-height: 18px;
+	opacity: 0.5;
+	margin-left: 4px;
+	color: ${theme.palette.text.disabled}
+	`
+)
+
+const TitleWithPrefix = styled('div')`
+	display: flex;
+	justify-content: flex-start;
+	align-items: flex-end;
 `

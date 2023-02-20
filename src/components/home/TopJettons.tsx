@@ -29,7 +29,7 @@ type ValueWithPercentage = {
 	percent: number
 }
 
-type JettonInterface = {
+type IJetton = {
 	name: string
 	address: string
 	price: ValueWithPercentage
@@ -37,21 +37,21 @@ type JettonInterface = {
 	activeOwners24h: ValueWithPercentage
 }
 
-type PlatformInterface = {
+type IPlatform = {
 	name: string
 	marketVolume: number
 }
 
 // TODO: map this to routes properly
 type ApiResponse = {
-	jettons: JettonInterface[]
-	platforms: PlatformInterface[]
+	jettons: IJetton[]
+	platforms: IPlatform[]
 	total: number
 }
 
 export const TopJettons: FC = () => {
-	const [jettons, setJettons] = useState<JettonInterface[]>([])
-	const [platforms, setPlatforms] = useState<PlatformInterface[]>([])
+	const [jettons, setJettons] = useState<IJetton[]>([])
+	const [platforms, setPlatforms] = useState<IPlatform[]>([])
 	const [totalVolume, setTotalVolume] = useState<number | undefined>(undefined)
 	const [currencyRates, setCurrencyRates] = useState(undefined)
 	const [currency, setCurrency] = useState<string>('TON')
