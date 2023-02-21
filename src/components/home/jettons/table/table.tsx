@@ -1,10 +1,11 @@
 import { styled } from '@mui/material/styles'
 import { IJetton } from 'src/api/types'
-import type { FC } from 'react'
+import { FC, useMemo } from 'react'
 import { GridRowsProp, GridColDef, DataGrid, GridRenderCellParams } from '@mui/x-data-grid'
 import { Jetton } from './cells/jetton'
 import { CustomPagination } from './components/pagination'
 import { Price } from './cells/price'
+import { Change } from './cells/change'
 
 interface ITable {
 	jettons: IJetton[]
@@ -24,58 +25,78 @@ const ColoredText = styled('p', {
 )
 
 const JettonsTable: FC<ITable> = ({ jettons }) => {
-	const rows: GridRowsProp = jettons.map((jetton, index) => ({
-		data: jetton,
-		id: index + 1,
-		name: jetton.name,
-		price: jetton.price.value,
-		price24h: jetton.price.percent,
-		marketVolume: jetton.marketVolume.value,
-		totalHolders: jetton.totalHolders.value,
-		activeOwners24h: jetton.activeOwners24h.value
-	}))
+	const rows = useMemo((): GridRowsProp => {
+		return jettons.map((jetton, index) => ({
+			data: jetton,
+			id: index + 1,
+			name: jetton.name,
+			price: jetton.price.value,
+			price24h: jetton.price.percent,
+			marketVolume: jetton.marketVolume.value,
+			totalHolders: jetton.totalHolders.value,
+			activeOwners24h: jetton.activeOwners24h.value
+		}))
+	}, [jettons])
 
-	// @ts-ignore
-	const columns: GridColDef = [
-		{ field: 'id', headerName: '#', width: 80, hideable: false },
-		{
-			field: 'name',
-			headerName: 'Jetton',
-			width: 220,
-			renderCell: ({ row }: GridRenderCellParams<string>) => {
-				return <Jetton symbol={row.data.name} address={row.data.address} />
+	const columns = useMemo((): GridColDef => {
+		// @ts-ignore
+		return [
+			{ field: 'id', headerName: '#', width: 80, hideable: false },
+			{
+				field: 'name',
+				headerName: 'Jetton',
+				width: 220,
+				renderCell: ({ row }: GridRenderCellParams<string>) => {
+					return <Jetton symbol={row.data.name} address={row.data.address} />
+				}
+			},
+			{
+				field: 'price',
+				headerName: 'Price',
+				width: 220,
+				hideable: false,
+				renderCell: ({ value, row }: GridRenderCellParams<string>) => {
+					return <Price isFloat={true} value={value!} />
+				}
+			},
+			{
+				field: 'price24h',
+				headerName: 'Price 24h',
+				width: 220,
+				hideable: false,
+				renderCell: ({ value }: GridRenderCellParams<string>) => {
+					return <ColoredText impact={parseInt(value!, 10) > 0}>{value}%</ColoredText>
+				}
+			},
+			{
+				field: 'marketVolume',
+				headerName: 'Volume 24h',
+				width: 220,
+				hideable: false,
+				renderCell: ({ value, row }: GridRenderCellParams<string>) => {
+					return <Price value={value!} percentage={row.data.marketVolume.percent} />
+				}
+			},
+			{
+				field: 'activeOwners24h',
+				headerName: 'Owners 24h',
+				width: 220,
+				hideable: false,
+				renderCell: ({ row }: GridRenderCellParams<string>) => {
+					return <Change value={row.data.activeOwners24h.value} percentage={row.data.activeOwners24h.percent} />
+				}
+			},
+			{
+				field: 'totalHolders',
+				headerName: 'Total Holders',
+				width: 220,
+				hideable: false,
+				renderCell: ({ row }: GridRenderCellParams<string>) => {
+					return <Change value={row.data.totalHolders.value} percentage={row.data.totalHolders.percent} />
+				}
 			}
-		},
-		{
-			field: 'price',
-			headerName: 'Price',
-			width: 220,
-			hideable: false,
-			renderCell: ({ value }: GridRenderCellParams<string>) => {
-				return <Price isFloat={true} value={value!} />
-			}
-		},
-		{
-			field: 'price24h',
-			headerName: 'Price 24h',
-			width: 220,
-			hideable: false,
-			renderCell: ({ value }: GridRenderCellParams<string>) => {
-				return <ColoredText impact={parseInt(value!, 10) > 0}>{value}%</ColoredText>
-			}
-		},
-		{
-			field: 'marketVolume',
-			headerName: 'Volume 24h',
-			width: 220,
-			hideable: false,
-			renderCell: ({ value }: GridRenderCellParams<string>) => {
-				return <Price value={value!} />
-			}
-		},
-		{ field: 'activeOwners24h', headerName: 'Owners 24h', width: 220, hideable: false },
-		{ field: 'totalHolders', headerName: 'Total Holders', width: 220, hideable: false }
-	]
+		]
+	}, [jettons])
 
 	return (
 		<Wrapper>
@@ -107,6 +128,9 @@ const StyledDataGrid = styled(DataGrid)(({ theme }) => ({
 	letterSpacing: 'normal',
 	'& .MuiDataGrid-columnsContainer': {
 		backgroundColor: theme.palette.mode === 'light' ? '#fafafa' : '#1d1d1d'
+	},
+	'& .MuiDataGrid-footerContainer': {
+		borderTop: 'none'
 	},
 	'& .MuiDataGrid-iconSeparator': {
 		display: 'none'

@@ -25,9 +25,9 @@ const StyledLayout = styled('div')(
 )
 
 const Main = styled('main')`
-	margin-top: 36px;
+	padding: 36px 0;
 	display: grid;
-	grid-template-columns: '1fr';
+	grid-template-columns: 1fr;
 	grid-gap: 36px;
 `
 
