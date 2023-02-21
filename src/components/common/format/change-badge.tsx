@@ -1,11 +1,12 @@
 import { styled } from '@mui/material'
 import { FC } from 'react'
+import { getColorForPercentage } from 'src/utils/getColor'
 
 const StyledChange = styled('div', {
 	shouldForwardProp: (prop) => prop !== 'impact'
-})<{ impact: boolean }>(
-	({ impact, theme }) => `
-     background-color: ${impact ? theme.palette.success.main : theme.palette.error.main};
+})<{ percentage: number | null }>(
+	({ percentage, theme }) => `
+     background-color: ${getColorForPercentage(theme, percentage)};
      border-radius: 16px;
      padding: 2px 6px;
      font-size: 12px;
@@ -15,9 +16,14 @@ const StyledChange = styled('div', {
 )
 
 interface IChange {
-	percentage: number
+	percentage: number | null
 }
 
 export const ChangeBadge: FC<IChange> = ({ percentage }) => {
-	return <StyledChange impact={percentage > 0}>{percentage}%</StyledChange>
+	return (
+		<StyledChange percentage={percentage}>
+			{percentage === null ? 'New 🔥' : percentage}
+			{percentage !== null && '%'}
+		</StyledChange>
+	)
 }

@@ -11,6 +11,7 @@ import { jettonsActions } from 'src/store/jettons-slice'
 import { useDispatch } from 'react-redux'
 import { platformsActions } from 'src/store/platforms-slice'
 import { volumeActions } from 'src/store/volume-slice'
+import { getColorForPercentage } from 'src/utils/getColor'
 
 interface ITable {}
 
@@ -21,9 +22,9 @@ const Wrapper = styled('div')`
 
 const ColoredText = styled('p', {
 	shouldForwardProp: (prop) => prop !== 'impact'
-})<{ impact: boolean }>(
-	({ impact, theme }) => `
-     color: ${impact ? theme.palette.success.main : theme.palette.error.main};
+})<{ percentage: number | null }>(
+	({ percentage, theme }) => `
+     color: ${getColorForPercentage(theme, percentage)};
    `
 )
 
@@ -80,8 +81,8 @@ const JettonsTable: FC<ITable> = () => {
 				headerName: 'Price 24h',
 				width: 220,
 				hideable: false,
-				renderCell: ({ value }: GridRenderCellParams<string>) => {
-					return <ColoredText impact={parseInt(value!, 10) > 0}>{value}%</ColoredText>
+				renderCell: ({ row, value }: GridRenderCellParams<string>) => {
+					return <ColoredText percentage={row.data.price.percent}>{value ? `${value}%` : 'New 🔥'}</ColoredText>
 				}
 			},
 			{
@@ -89,8 +90,8 @@ const JettonsTable: FC<ITable> = () => {
 				headerName: 'Volume 24h',
 				width: 220,
 				hideable: false,
-				renderCell: ({ value, row }: GridRenderCellParams<string>) => {
-					return <Price value={value!} percentage={row.data.marketVolume.percent} />
+				renderCell: ({ row }: GridRenderCellParams<string>) => {
+					return <Price value={row.data.marketVolume.value} percentage={row.data.marketVolume.percent} />
 				}
 			},
 			{

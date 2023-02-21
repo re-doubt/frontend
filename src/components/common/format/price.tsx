@@ -5,11 +5,15 @@ import { Change } from './change'
 
 interface IPrice {
 	percentage?: number
-	value: string | number
+	value: string | number | null
 	isFloat?: boolean
 }
 
 export const Price: FC<IPrice> = ({ value, percentage, isFloat = false }) => {
+	if (value === null) {
+		return <>New 🔥</>
+	}
+
 	const numIfString = (val: number | string) => {
 		if (typeof val === 'string') {
 			return parseFloat(val)
@@ -19,9 +23,9 @@ export const Price: FC<IPrice> = ({ value, percentage, isFloat = false }) => {
 	}
 
 	const { currency, currencyMultiplier } = useTypedSelector((state) => state.settings)
-	const builder = new CurrencyBuilder(numIfString(value) * currencyMultiplier)
+	const builder = new CurrencyBuilder(numIfString(value!) * currencyMultiplier)
 	const formattedFloat = isFloat || currency !== SupportedCurrencies.TON
 	const formattedValue = builder.addPrecisionIfTruthy(formattedFloat, 2).switchCurrency(currency).build()
 
-	return <>{percentage ? <Change percentage={percentage} value={formattedValue} /> : <>{formattedValue}</>}</>
+	return <>{percentage !== undefined ? <Change percentage={percentage} value={formattedValue} /> : <>{formattedValue}</>}</>
 }

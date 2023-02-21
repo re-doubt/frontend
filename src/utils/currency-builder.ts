@@ -44,7 +44,7 @@ export class CurrencyBuilder {
 	build() {
 		switch (this.currency) {
 			case SupportedCurrencies.USD:
-				return `$ ${this.formattedValue}`
+				return `$${this.formattedValue}`
 
 			default:
 				return `${this.formattedValue} 💎`

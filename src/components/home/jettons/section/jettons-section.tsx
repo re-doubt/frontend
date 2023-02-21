@@ -1,5 +1,4 @@
 import { styled } from '@mui/material'
-import { useSelector } from 'react-redux'
 import { Price } from 'src/components/common/format/price'
 import { useTypedSelector } from 'src/store/store'
 
