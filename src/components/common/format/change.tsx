@@ -1,6 +1,6 @@
 import { styled } from '@mui/material'
 import { FC, ReactNode } from 'react'
-import { ChangeBadge } from '../components/change-badge'
+import { ChangeBadge } from './change-badge'
 
 interface IChange {
 	percentage: number

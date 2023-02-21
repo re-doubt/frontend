@@ -1,11 +1,10 @@
 import { styled } from '@mui/material'
 import { FC } from 'react'
+import { useTypedSelector } from 'src/store/store'
+import { Price } from '../format/price'
 import { CurrecySelect } from './currency/select'
 
-interface ISubHeader {
-	jettonCount: number
-	platformCount: number
-}
+interface ISubHeader {}
 
 const StyledSub = styled('section')`
 	display: flex;
@@ -48,7 +47,12 @@ const CurrencyLabel = styled('label')`
 	margin-right: 16px;
 `
 
-export const SubHeader: FC<ISubHeader> = ({ jettonCount, platformCount }) => {
+export const SubHeader: FC<ISubHeader> = () => {
+	const { platforms, volume, jettons } = useTypedSelector((state) => state)
+	const jettonCount = jettons.jettons.length
+	const platformCount = platforms.platforms.length
+	const volumeCount = volume.totalVolume
+
 	return (
 		<StyledSub>
 			<Params>
@@ -61,7 +65,7 @@ export const SubHeader: FC<ISubHeader> = ({ jettonCount, platformCount }) => {
 				</Param>
 
 				<Param>
-					Total volume: <Span>${platformCount}</Span>
+					Total volume: <Price value={volumeCount} />
 				</Param>
 			</Params>
 

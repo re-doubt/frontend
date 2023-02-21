@@ -1,15 +1,18 @@
 import { styled } from '@mui/material/styles'
 import { IJetton } from 'src/api/types'
-import { FC, useMemo } from 'react'
+import { FC, useEffect, useMemo, useState } from 'react'
 import { GridRowsProp, GridColDef, DataGrid, GridRenderCellParams } from '@mui/x-data-grid'
 import { Jetton } from './cells/jetton'
 import { CustomPagination } from './components/pagination'
-import { Price } from './cells/price'
-import { Change } from './cells/change'
+import { Price } from '../../../common/format/price'
+import { Change } from '../../../common/format/change'
+import { useGetJettonsQuery } from 'src/api/rtk'
+import { jettonsActions } from 'src/store/jettons-slice'
+import { useDispatch } from 'react-redux'
+import { platformsActions } from 'src/store/platforms-slice'
+import { volumeActions } from 'src/store/volume-slice'
 
-interface ITable {
-	jettons: IJetton[]
-}
+interface ITable {}
 
 const Wrapper = styled('div')`
 	width: 100%;
@@ -24,7 +27,20 @@ const ColoredText = styled('p', {
    `
 )
 
-const JettonsTable: FC<ITable> = ({ jettons }) => {
+const JettonsTable: FC<ITable> = () => {
+	const { data, isSuccess } = useGetJettonsQuery('')
+	const [jettons, setJettons] = useState<IJetton[]>([])
+	const dispatch = useDispatch()
+
+	useEffect(() => {
+		if (isSuccess) {
+			setJettons(data.jettons)
+			dispatch(jettonsActions.setJettons(data.jettons))
+			dispatch(platformsActions.setPlatforms(data.platforms))
+			dispatch(volumeActions.setVolume(data.total))
+		}
+	}, [isSuccess])
+
 	const rows = useMemo((): GridRowsProp => {
 		return jettons.map((jetton, index) => ({
 			data: jetton,
@@ -55,7 +71,7 @@ const JettonsTable: FC<ITable> = ({ jettons }) => {
 				headerName: 'Price',
 				width: 220,
 				hideable: false,
-				renderCell: ({ value, row }: GridRenderCellParams<string>) => {
+				renderCell: ({ value }: GridRenderCellParams<string>) => {
 					return <Price isFloat={true} value={value!} />
 				}
 			},

@@ -1,4 +1,7 @@
 import { styled } from '@mui/material'
+import { useSelector } from 'react-redux'
+import { Price } from 'src/components/common/format/price'
+import { useTypedSelector } from 'src/store/store'
 
 const StyledSection = styled('section')(
 	({ theme }) => `
@@ -26,10 +29,15 @@ const Description = styled('p')(
 )
 
 export const JettonsSection = () => {
+	const jettonCount = useTypedSelector((state) => state.jettons).jettons.length
+	const volume = useTypedSelector((state) => state.volume.totalVolume)
+
 	return (
 		<StyledSection>
 			<Title>💵 Discover top Jettons</Title>
-			<Description>Today's TON ecosystem consists of 40 jettons total $40000 trading volume</Description>
+			<Description>
+				Today's TON ecosystem consists of {jettonCount} jettons with total {<Price value={volume} />} trading volume
+			</Description>
 		</StyledSection>
 	)
 }

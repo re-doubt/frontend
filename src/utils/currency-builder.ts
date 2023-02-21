@@ -1,6 +1,11 @@
 export enum SupportedCurrencies {
-	TON,
-	USD
+	TON = 'TON',
+	USD = 'USD'
+}
+
+export type CurrencySettings = {
+	currency: SupportedCurrencies
+	multiplier: number
 }
 
 export class CurrencyBuilder {

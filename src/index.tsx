@@ -9,6 +9,8 @@ import { Home } from './pages/home'
 import { createBrowserRouter, RouterProvider } from 'react-router-dom'
 import { ThemeProvider } from '@mui/material'
 import { createTheme } from '@mui/material/styles'
+import { Provider } from 'react-redux'
+import { store } from './store/store'
 
 if (TRACKING_ID !== undefined) {
 	ReactGA.initialize(TRACKING_ID)
@@ -50,11 +52,13 @@ const theme = createTheme({
 
 ReactDOM.render(
 	<React.StrictMode>
-		<QueryClientProvider client={queryClient}>
-			<ThemeProvider theme={theme}>
-				<RouterProvider router={router} />
-			</ThemeProvider>
-		</QueryClientProvider>
+		<Provider store={store}>
+			<QueryClientProvider client={queryClient}>
+				<ThemeProvider theme={theme}>
+					<RouterProvider router={router} />
+				</ThemeProvider>
+			</QueryClientProvider>
+		</Provider>
 	</React.StrictMode>,
 	document.getElementById('root')
 )

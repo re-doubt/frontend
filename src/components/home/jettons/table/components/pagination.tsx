@@ -3,14 +3,11 @@ import { gridPageCountSelector, gridPageSelector, useGridApiContext, useGridSele
 import { ChangeEvent } from 'react'
 
 const StyledItem = styled(PaginationItem)`
-	border-radius: 8px !important;
+	border-radius: 16px !important;
 	margin: 0 8px;
 	font-size: 18px;
 	min-width: 48px;
 	height: 48px;
-	::selection {
-		background: black;
-	}
 `
 
 const StyledPagination = styled(Pagination)`

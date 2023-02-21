@@ -6,6 +6,7 @@ import '../styles/globals.css'
 import { styled } from '@mui/material/styles'
 import { Footer } from 'src/components/common/footer/footer'
 import { SubHeader } from 'src/components/common/sub-header/sub-header'
+import { useGetJettonsQuery } from 'src/api/rtk'
 
 interface IBaseLayout {
 	children: ReactNode
@@ -36,7 +37,7 @@ export const BaseLayout: FC<IBaseLayout> = ({ children, ...rest }) => {
 		<StyledLayout {...rest}>
 			{/* Header section */}
 			<Header />
-			<SubHeader jettonCount={0} platformCount={0} />
+			<SubHeader />
 
 			{/* Main section */}
 			<Main>{children}</Main>
