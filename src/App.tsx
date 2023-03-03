@@ -3,13 +3,12 @@ import { TopJettons } from './modules/home/TopJettons'
 import { Box, Container, Grid, Link, Typography } from '@mui/material'
 import GitHubIcon from '@mui/icons-material/GitHub'
 import TelegramIcon from '@mui/icons-material/Telegram'
-import ReactGA from 'react-ga'
+import ReactGA from 'react-ga4'
 import { TRACKING_ID } from './constants/analytics'
 import { QueryClient, QueryClientProvider } from 'react-query'
 
 if (TRACKING_ID !== undefined) {
 	ReactGA.initialize(TRACKING_ID)
-	ReactGA.pageview(window.location.pathname + window.location.search)
 }
 
 const queryClient = new QueryClient()
