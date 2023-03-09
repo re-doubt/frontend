@@ -12,6 +12,8 @@ import { useDispatch } from 'react-redux'
 import { platformsActions } from 'src/store/platforms-slice'
 import { volumeActions } from 'src/store/volume-slice'
 import { getColorForPercentage } from 'src/utils/getColor'
+import { useTypedSelector } from 'src/store/store'
+import { LinearProgress } from '@mui/material'
 
 interface ITable {}
 
@@ -28,19 +30,9 @@ const ColoredText = styled('p', {
    `
 )
 
-const JettonsTable: FC<ITable> = () => {
-	const { data, isSuccess } = useGetJettonsQuery('')
-	const [jettons, setJettons] = useState<IJetton[]>([])
-	const dispatch = useDispatch()
-
-	useEffect(() => {
-		if (isSuccess) {
-			setJettons(data.jettons)
-			dispatch(jettonsActions.setJettons(data.jettons))
-			dispatch(platformsActions.setPlatforms(data.platforms))
-			dispatch(volumeActions.setVolume(data.total))
-		}
-	}, [isSuccess])
+export const JettonsTable: FC<ITable> = () => {
+	const jettons = useTypedSelector((state) => state.jettons.jettons)
+	const isLoading = useTypedSelector((state) => state.jettons.isLoading)
 
 	const rows = useMemo((): GridRowsProp => {
 		return jettons.map((jetton, index) => ({
@@ -53,7 +45,7 @@ const JettonsTable: FC<ITable> = () => {
 			totalHolders: jetton.totalHolders.value,
 			activeOwners24h: jetton.activeOwners24h.value
 		}))
-	}, [jettons])
+	}, [jettons, isLoading])
 
 	const columns = useMemo((): GridColDef => {
 		// @ts-ignore
@@ -129,12 +121,14 @@ const JettonsTable: FC<ITable> = () => {
 				rows={rows}
 				// @ts-ignore
 				columns={columns}
+				slots={{
+					loadingOverlay: LinearProgress
+				}}
+				loading={isLoading}
 			/>
 		</Wrapper>
 	)
 }
-
-export default JettonsTable
 
 const StyledDataGrid = styled(DataGrid)(({ theme }) => ({
 	border: 0,

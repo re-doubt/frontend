@@ -1,4 +1,4 @@
-import { FC, ReactNode } from 'react'
+import { FC, ReactNode, useEffect, useState } from 'react'
 import { Header } from 'src/components/common/header/header'
 
 import '../styles/reset.css'
@@ -7,6 +7,10 @@ import { styled } from '@mui/material/styles'
 import { Footer } from 'src/components/common/footer/footer'
 import { SubHeader } from 'src/components/common/sub-header/sub-header'
 import { useGetJettonsQuery } from 'src/api/rtk'
+import { useDispatch } from 'react-redux'
+import { jettonsActions } from 'src/store/jettons-slice'
+import { platformsActions } from 'src/store/platforms-slice'
+import { volumeActions } from 'src/store/volume-slice'
 
 interface IBaseLayout {
 	children: ReactNode
@@ -33,6 +37,20 @@ const Main = styled('main')`
 `
 
 export const BaseLayout: FC<IBaseLayout> = ({ children, ...rest }) => {
+	const { data, isSuccess } = useGetJettonsQuery('')
+	const dispatch = useDispatch()
+
+	useEffect(() => {
+		if (isSuccess) {
+			dispatch(jettonsActions.setJettons(data.jettons))
+			dispatch(jettonsActions.setLoading(false))
+			dispatch(platformsActions.setPlatforms(data.platforms))
+			dispatch(platformsActions.setLoading(false))
+			dispatch(volumeActions.setVolume(data.total))
+			dispatch(volumeActions.setLoading(false))
+		}
+	}, [isSuccess])
+
 	return (
 		<StyledLayout {...rest}>
 			{/* Header section */}

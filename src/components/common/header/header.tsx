@@ -1,12 +1,13 @@
 import { Button } from '@mui/material'
 import { styled } from '@mui/material/styles'
-import { Box } from '@mui/system'
+import { Box, css } from '@mui/system'
 import { FC } from 'react'
+import { Link } from 'react-router-dom'
 
 export const Header: FC = () => {
 	return (
 		<StyledHeader>
-			<LogoWrapper>
+			<LogoWrapper to="/">
 				<Logo src="img/common/header/logo.svg" />
 				<TitleWithPrefix>
 					<Title>re:doubt</Title>
@@ -15,8 +16,8 @@ export const Header: FC = () => {
 			</LogoWrapper>
 
 			<Links>
-				<StyledLink>Jettons</StyledLink>
-				<StyledLink>Platforms</StyledLink>
+				<StyledLink to="/jettons">Jettons</StyledLink>
+				<StyledLink to="/platforms">Platforms</StyledLink>
 			</Links>
 		</StyledHeader>
 	)
@@ -42,10 +43,12 @@ const Title = styled('h3')(
 `
 )
 
-const LogoWrapper = styled('div')`
+const LogoWrapper = styled(Link)`
 	display: flex;
 	justify-content: flex-start;
 	align-items: center;
+	text-decoration: none;
+	cursor: pointer;
 `
 const Links = styled('div')`
 	display: grid;
@@ -54,23 +57,25 @@ const Links = styled('div')`
 	align-items: center;
 `
 
-const StyledLink = styled('a')(
-	({ theme }) => `
-	font-weight: 600;
-	font-size: 20px;
-	line-height: 24px;
-	color: ${theme.palette.text.primary}
+const StyledLink = styled(Link)(
+	({ theme }) => css`
+		font-weight: 600;
+		font-size: 20px;
+		line-height: 24px;
+		text-decoration: none;
+		cursor: pointer;
+		color: ${theme.palette.text.primary};
 	`
 )
 
 const Prefix = styled('span')(
-	({ theme }) => `
-	font-weight: 400;
-	font-size: 12px;
-	line-height: 18px;
-	opacity: 0.5;
-	margin-left: 4px;
-	color: ${theme.palette.text.disabled}
+	({ theme }) => css`
+		font-weight: 400;
+		font-size: 12px;
+		line-height: 18px;
+		opacity: 0.5;
+		margin-left: 4px;
+		color: ${theme.palette.text.disabled};
 	`
 )
 

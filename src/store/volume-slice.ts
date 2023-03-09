@@ -1,22 +1,30 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit'
+import { Loadable } from 'src/utils/types'
 import { RootState } from './store'
 
 export const VOLUME_FEATURE_KEY = 'volume'
 
-export type volumeState = {
+export type VolumeState = {
 	totalVolume: number
 }
 
-export const initialvolumeState: volumeState = {
-	totalVolume: 0
+export const initialVolumeState: Loadable<VolumeState> = {
+	totalVolume: 0,
+	isLoading: true
 }
 
 export const volumeSlice = createSlice({
 	name: VOLUME_FEATURE_KEY,
-	initialState: initialvolumeState,
+	initialState: initialVolumeState,
 	reducers: {
 		setVolume(state, action: PayloadAction<number>) {
 			state.totalVolume = action.payload
+		},
+		triggerLoading(state) {
+			state.isLoading = !state.isLoading
+		},
+		setLoading(state, action: PayloadAction<boolean>) {
+			state.isLoading = action.payload
 		}
 	}
 })
@@ -24,4 +32,4 @@ export const volumeSlice = createSlice({
 export const volumeReducer = volumeSlice.reducer
 export const volumeActions = volumeSlice.actions
 
-export const getvolumeState = (rootState: RootState): volumeState => rootState[VOLUME_FEATURE_KEY]
+export const getvolumeState = (rootState: RootState): VolumeState => rootState[VOLUME_FEATURE_KEY]

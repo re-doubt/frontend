@@ -1,4 +1,4 @@
-import { styled } from '@mui/material'
+import { css, Skeleton, SkeletonProps, Stack, StackProps, styled, Typography } from '@mui/material'
 import { FC } from 'react'
 import { useTypedSelector } from 'src/store/store'
 import { Price } from '../format/price'
@@ -13,25 +13,18 @@ const StyledSub = styled('section')`
 	margin: 16px 0 0 0;
 `
 
-const Params = styled('div')`
-	display: flex;
-	justify-content: flex-start;
-	align-items: center;
-`
-
-const Param = styled('div')(
-	({ theme }) => `
-	color: ${theme.palette.text.disabled};
-	margin-right: 36px;
-	font-size: 18px;
-	line-height: 32px;
-	:last-child {
-		margin-left: 0;
-	}
-`
+const Text = styled(Typography)(
+	({ theme }) => css`
+		color: ${theme.palette.text.disabled};
+		font-size: 18px;
+		line-height: 32px;
+		:last-child {
+			margin-left: 0;
+		}
+	`
 )
 
-const Span = styled('span')(
+const Span = styled(Text)(
 	({ theme }) => `
 	color: ${theme.palette.primary.main};
 `
@@ -55,19 +48,28 @@ export const SubHeader: FC<ISubHeader> = () => {
 
 	return (
 		<StyledSub>
-			<Params>
-				<Param>
-					Jettons: <Span>{jettonCount}</Span>
-				</Param>
+			<Stack direction="row" alignItems="center" gap="36px">
+				<Stack {...paramProps}>
+					<Text>Jettons:</Text>
+					{jettons.isLoading ? <Skeleton {...skeletonProps} /> : <Span sx={{ color: 'main' }}>{jettonCount}</Span>}
+				</Stack>
 
-				<Param>
-					Platforms: <Span>{platformCount}</Span>
-				</Param>
+				<Stack {...paramProps}>
+					<Text>Platforms:</Text>
+					{platforms.isLoading ? <Skeleton {...skeletonProps} /> : <Span sx={{ color: 'main' }}>{platformCount}</Span>}
+				</Stack>
 
-				<Param>
-					Total volume: <Price value={volumeCount} />
-				</Param>
-			</Params>
+				<Stack {...paramProps}>
+					<Text>Total volume:</Text>
+					{platforms.isLoading ? (
+						<Skeleton {...skeletonProps} width="6ch" />
+					) : (
+						<Span sx={{ color: 'main' }}>
+							<Price value={volumeCount} />
+						</Span>
+					)}
+				</Stack>
+			</Stack>
 
 			<Currency>
 				<CurrencyLabel>Currency:</CurrencyLabel>
@@ -75,4 +77,18 @@ export const SubHeader: FC<ISubHeader> = () => {
 			</Currency>
 		</StyledSub>
 	)
+}
+
+const paramProps: StackProps = {
+	direction: 'row',
+	gap: '.8rem',
+	alignItems: 'center'
+}
+
+const skeletonProps: SkeletonProps = {
+	width: '2ch',
+	sx: {
+		fontSize: '18px',
+		lineHeight: '32px'
+	}
 }

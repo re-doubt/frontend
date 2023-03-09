@@ -6,11 +6,12 @@ import ReactGA from 'react-ga'
 import { TRACKING_ID } from './constants/analytics'
 import { QueryClient, QueryClientProvider } from 'react-query'
 import { Home } from './pages/home'
-import { createBrowserRouter, RouterProvider } from 'react-router-dom'
+import { createBrowserRouter, Navigate, RouterProvider } from 'react-router-dom'
 import { ThemeProvider } from '@mui/material'
 import { createTheme } from '@mui/material/styles'
 import { Provider } from 'react-redux'
 import { store } from './store/store'
+import { Platforms } from './pages/platforms'
 
 if (TRACKING_ID !== undefined) {
 	ReactGA.initialize(TRACKING_ID)
@@ -21,6 +22,14 @@ const router = createBrowserRouter([
 	{
 		path: '/',
 		element: <Home />
+	},
+	{
+		path: '/platforms',
+		element: <Platforms />
+	},
+	{
+		path: '/jettons',
+		element: <Navigate to="/" />
 	}
 ])
 
