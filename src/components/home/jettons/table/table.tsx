@@ -14,6 +14,7 @@ import { volumeActions } from 'src/store/volume-slice'
 import { getColorForPercentage } from 'src/utils/getColor'
 import { useTypedSelector } from 'src/store/store'
 import { LinearProgress } from '@mui/material'
+import { bodyFontSize, padding } from 'src/components/common/css/responsive'
 
 interface ITable {}
 
@@ -154,6 +155,44 @@ const StyledDataGrid = styled(DataGrid)(({ theme }) => ({
 	},
 	'&.MuiDataGrid-root--densityCompact .MuiDataGrid-cell': { padding: '8px' },
 	'&.MuiDataGrid-root--densityStandard .MuiDataGrid-cell': { padding: '16px' },
-	'&.MuiDataGrid-root--densityComfortable .MuiDataGrid-cell': { padding: '24px' },
-	'&.MuiDataGrid-root--densityComfortable .MuiDataGrid-columnHeader': { padding: '24px' }
+	'&.MuiDataGrid-root--densityComfortable .MuiDataGrid-cell': {
+		[`@media (min-width: ${theme.breakpoints.values.xs}px)`]: {
+			padding: padding.xs
+		},
+		[`@media (min-width: ${theme.breakpoints.values.sm}px)`]: {
+			padding: padding.sm
+		},
+		[`@media (min-width: ${theme.breakpoints.values.md}px)`]: {
+			padding: padding.md
+		},
+		[`@media (min-width: ${theme.breakpoints.values.lg}px)`]: {
+			padding: padding.lg
+		}
+	},
+	'&.MuiDataGrid-root--densityComfortable .MuiDataGrid-columnHeader': {
+		[`@media (min-width: ${theme.breakpoints.values.xs}px)`]: {
+			padding: padding.xs
+		},
+		[`@media (min-width: ${theme.breakpoints.values.sm}px)`]: {
+			padding: padding.sm
+		},
+		[`@media (min-width: ${theme.breakpoints.values.md}px)`]: {
+			padding: padding.md
+		},
+		[`@media (min-width: ${theme.breakpoints.values.lg}px)`]: {
+			padding: padding.lg
+		}
+	},
+	[`@media (min-width: ${theme.breakpoints.values.xs}px)`]: {
+		fontSize: bodyFontSize.xs
+	},
+	[`@media (min-width: ${theme.breakpoints.values.sm}px)`]: {
+		fontSize: bodyFontSize.sm
+	},
+	[`@media (min-width: ${theme.breakpoints.values.md}px)`]: {
+		fontSize: bodyFontSize.md
+	},
+	[`@media (min-width: ${theme.breakpoints.values.lg}px)`]: {
+		fontSize: bodyFontSize.lg
+	}
 }))

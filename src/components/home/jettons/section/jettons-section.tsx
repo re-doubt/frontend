@@ -1,22 +1,32 @@
-import { Skeleton, styled } from '@mui/material'
+import { css, Skeleton, styled } from '@mui/material'
 import { StyledSection } from 'src/components/common/base/section'
+import { Title } from 'src/components/common/base/title'
+import { bodyFontSize } from 'src/components/common/css/responsive'
 import { Price } from 'src/components/common/format/price'
 import { useTypedSelector } from 'src/store/store'
 
-const Title = styled('h1')`
-	font-weight: 600;
-	font-size: 24px;
-	line-height: 34px;
-	margin-bottom: 4px;
-`
-
 const Description = styled('p')(
 	({ theme }) =>
+		css`
+			line-height: 1.5;
+			color: ${theme.palette.text.disabled};
+
+			@media (min-width: ${theme.breakpoints.values.xs}px) {
+				font-size: ${bodyFontSize.xs};
+			}
+
+			@media (min-width: ${theme.breakpoints.values.sm}px) {
+				font-size: ${bodyFontSize.sm};
+			}
+
+			@media (min-width: ${theme.breakpoints.values.md}px) {
+				font-size: ${bodyFontSize.md};
+			}
+
+			@media (min-width: ${theme.breakpoints.values.lg}px) {
+				font-size: ${bodyFontSize.lg};
+			}
 		`
-        font-size: 18px;
-        line-height: 1.5;
-        color: ${theme.palette.text.disabled}
-    `
 )
 
 const skeletonSX = { lineHeight: '32px', display: 'inline-block' }

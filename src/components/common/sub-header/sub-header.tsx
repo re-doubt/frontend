@@ -1,6 +1,7 @@
 import { css, Skeleton, SkeletonProps, Stack, StackProps, styled, Typography } from '@mui/material'
 import { FC } from 'react'
 import { useTypedSelector } from 'src/store/store'
+import { bodyFontSize, gridGap } from '../css/responsive'
 import { Price } from '../format/price'
 import { CurrecySelect } from './currency/select'
 
@@ -16,10 +17,25 @@ const StyledSub = styled('section')`
 const Text = styled(Typography)(
 	({ theme }) => css`
 		color: ${theme.palette.text.disabled};
-		font-size: 18px;
 		line-height: 32px;
 		:last-child {
 			margin-left: 0;
+		}
+
+		@media (min-width: ${theme.breakpoints.values.xs}px) {
+			font-size: ${bodyFontSize.xs};
+		}
+
+		@media (min-width: ${theme.breakpoints.values.sm}px) {
+			font-size: ${bodyFontSize.sm};
+		}
+
+		@media (min-width: ${theme.breakpoints.values.md}px) {
+			font-size: ${bodyFontSize.md};
+		}
+
+		@media (min-width: ${theme.breakpoints.values.lg}px) {
+			font-size: ${bodyFontSize.lg};
 		}
 	`
 )
@@ -48,7 +64,7 @@ export const SubHeader: FC<ISubHeader> = () => {
 
 	return (
 		<StyledSub>
-			<Stack direction="row" alignItems="center" gap="36px">
+			<Stack direction="row" alignItems="center" gap={{ xs: gridGap.xs, md: gridGap.md, lg: gridGap.lg }}>
 				<Stack {...paramProps}>
 					<Text>Jettons:</Text>
 					{jettons.isLoading ? <Skeleton {...skeletonProps} /> : <Span sx={{ color: 'main' }}>{jettonCount}</Span>}

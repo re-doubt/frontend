@@ -1,6 +1,4 @@
-import { Button } from '@mui/material'
-import { styled } from '@mui/material/styles'
-import { Box, css } from '@mui/system'
+import { styled, css } from '@mui/material/styles'
 import { FC } from 'react'
 import { Link } from 'react-router-dom'
 
@@ -29,27 +27,55 @@ const StyledHeader = styled('header')`
 	justify-content: space-between;
 `
 
-const Logo = styled('img')`
-	width: 50px;
-	height: 50px;
-`
+const Logo = styled('img')(
+	({ theme }) => css`
+		@media (min-width: ${theme.breakpoints.values.xs}px) {
+			width: 30px;
+			height: 30px;
+		}
 
-const Title = styled('h3')(
-	({ theme }) => `
-	font-weight: 600;
-	font-size: 32px;
-	color: ${theme.palette.primary.main};
-	margin-left: 10px;
-`
+		@media (min-width: ${theme.breakpoints.values.md}px) {
+			width: 40px;
+			height: 40px;
+		}
+
+		@media (min-width: ${theme.breakpoints.values.lg}px) {
+			width: 50px;
+			height: 50px;
+		}
+	`
 )
 
-const LogoWrapper = styled(Link)`
-	display: flex;
-	justify-content: flex-start;
-	align-items: center;
-	text-decoration: none;
-	cursor: pointer;
-`
+const Title = styled('h3')(
+	({ theme }) => css`
+		font-weight: 600;
+		color: ${theme.palette.primary.main};
+		margin-left: 10px;
+
+		@media (min-width: ${theme.breakpoints.values.xs}px) {
+			font-size: 24px;
+		}
+
+		@media (min-width: ${theme.breakpoints.values.md}px) {
+			font-size: 28px;
+		}
+
+		@media (min-width: ${theme.breakpoints.values.lg}px) {
+			font-size: 32px;
+		}
+	`
+)
+
+const LogoWrapper = styled(Link)(
+	({ theme }) => css`
+		display: flex;
+		justify-content: flex-start;
+		align-items: center;
+		text-decoration: none;
+		cursor: pointer;
+	`
+)
+
 const Links = styled('div')`
 	display: grid;
 	grid-template-columns: repeat(2, max-content);
