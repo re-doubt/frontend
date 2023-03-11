@@ -1,7 +1,7 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
 import reportWebVitals from './reportWebVitals'
-import ReactGA from 'react-ga'
+import ReactGA from 'react-ga4'
 
 import { TRACKING_ID } from './constants/analytics'
 import { QueryClient, QueryClientProvider } from 'react-query'
@@ -15,7 +15,6 @@ import { Platforms } from './pages/platforms'
 
 if (TRACKING_ID !== undefined) {
 	ReactGA.initialize(TRACKING_ID)
-	ReactGA.pageview(window.location.pathname + window.location.search)
 }
 
 const router = createBrowserRouter([
