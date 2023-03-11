@@ -5,7 +5,7 @@ import { bodyFontSize } from 'src/components/common/css/responsive'
 import { Price } from 'src/components/common/format/price'
 import { useTypedSelector } from 'src/store/store'
 
-const Description = styled('p')(
+const Description = styled('div')(
 	({ theme }) =>
 		css`
 			line-height: 1.5;

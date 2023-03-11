@@ -1,29 +1,41 @@
-import { styled } from '@mui/material/styles'
-import { IJetton } from 'src/api/types'
-import { FC, useEffect, useMemo, useState } from 'react'
+import { css, styled } from '@mui/material/styles'
+import { FC, useMemo } from 'react'
 import { GridRowsProp, GridColDef, DataGrid, GridRenderCellParams } from '@mui/x-data-grid'
 import { Jetton } from './cells/jetton'
 import { CustomPagination } from './components/pagination'
 import { Price } from '../../../common/format/price'
 import { Change } from '../../../common/format/change'
-import { useGetJettonsQuery } from 'src/api/rtk'
-import { jettonsActions } from 'src/store/jettons-slice'
-import { useDispatch } from 'react-redux'
-import { platformsActions } from 'src/store/platforms-slice'
-import { volumeActions } from 'src/store/volume-slice'
 import { getColorForPercentage } from 'src/utils/getColor'
 import { useTypedSelector } from 'src/store/store'
 import { LinearProgress } from '@mui/material'
 import { bodyFontSize, padding } from 'src/components/common/css/responsive'
+import { useBreakpointValue } from 'src/hooks/useBreakpointValue'
 
 interface ITable {}
 
-const Wrapper = styled('div')`
-	width: 100%;
-	height: 1000px;
-`
+const Wrapper = styled('div')(
+	({ theme }) => css`
+		width: 100%;
 
-const ColoredText = styled('p', {
+		@media (min-width: ${theme.breakpoints.values.xs}px) {
+			height: 750px;
+		}
+
+		@media (min-width: ${theme.breakpoints.values.sm}px) {
+			height: 850px;
+		}
+
+		@media (min-width: ${theme.breakpoints.values.md}px) {
+			height: 900px;
+		}
+
+		@media (min-width: ${theme.breakpoints.values.lg}px) {
+			height: 1000px;
+		}
+	`
+)
+
+const ColoredText = styled('div', {
 	shouldForwardProp: (prop) => prop !== 'impact'
 })<{ percentage: number | null }>(
 	({ percentage, theme }) => `
@@ -34,6 +46,7 @@ const ColoredText = styled('p', {
 export const JettonsTable: FC<ITable> = () => {
 	const jettons = useTypedSelector((state) => state.jettons.jettons)
 	const isLoading = useTypedSelector((state) => state.jettons.isLoading)
+	const baseCellWidth = useBreakpointValue({ xs: 140, sm: 180, md: 200, lg: 220 })
 
 	const rows = useMemo((): GridRowsProp => {
 		return jettons.map((jetton, index) => ({
@@ -55,7 +68,7 @@ export const JettonsTable: FC<ITable> = () => {
 			{
 				field: 'name',
 				headerName: 'Jetton',
-				width: 220,
+				width: baseCellWidth,
 				renderCell: ({ row }: GridRenderCellParams<string>) => {
 					return <Jetton symbol={row.data.name} address={row.data.address} />
 				}
@@ -63,7 +76,7 @@ export const JettonsTable: FC<ITable> = () => {
 			{
 				field: 'price',
 				headerName: 'Price',
-				width: 220,
+				width: baseCellWidth,
 				hideable: false,
 				renderCell: ({ value }: GridRenderCellParams<string>) => {
 					return <Price isFloat={true} value={value!} />
@@ -72,7 +85,7 @@ export const JettonsTable: FC<ITable> = () => {
 			{
 				field: 'price24h',
 				headerName: 'Price 24h',
-				width: 220,
+				width: baseCellWidth,
 				hideable: false,
 				renderCell: ({ row, value }: GridRenderCellParams<string>) => {
 					return <ColoredText percentage={row.data.price.percent}>{value ? `${value}%` : 'New 🔥'}</ColoredText>
@@ -81,7 +94,7 @@ export const JettonsTable: FC<ITable> = () => {
 			{
 				field: 'marketVolume',
 				headerName: 'Volume 24h',
-				width: 220,
+				width: baseCellWidth,
 				hideable: false,
 				renderCell: ({ row }: GridRenderCellParams<string>) => {
 					return <Price value={row.data.marketVolume.value} percentage={row.data.marketVolume.percent} />
@@ -90,7 +103,7 @@ export const JettonsTable: FC<ITable> = () => {
 			{
 				field: 'activeOwners24h',
 				headerName: 'Owners 24h',
-				width: 220,
+				width: baseCellWidth,
 				hideable: false,
 				renderCell: ({ row }: GridRenderCellParams<string>) => {
 					return <Change value={row.data.activeOwners24h.value} percentage={row.data.activeOwners24h.percent} />
@@ -99,14 +112,14 @@ export const JettonsTable: FC<ITable> = () => {
 			{
 				field: 'totalHolders',
 				headerName: 'Total Holders',
-				width: 220,
+				width: baseCellWidth,
 				hideable: false,
 				renderCell: ({ row }: GridRenderCellParams<string>) => {
 					return <Change value={row.data.totalHolders.value} percentage={row.data.totalHolders.percent} />
 				}
 			}
 		]
-	}, [jettons])
+	}, [jettons, baseCellWidth])
 
 	return (
 		<Wrapper>

@@ -52,9 +52,15 @@ const Currency = styled('div')`
 	align-items: center;
 `
 
-const CurrencyLabel = styled('label')`
-	margin-right: 16px;
-`
+const CurrencyLabel = styled(Text)(
+	({ theme }) => css`
+		margin-right: 16px;
+
+		@media (max-width: ${theme.breakpoints.values.md}px) {
+			display: none;
+		}
+	`
+)
 
 export const SubHeader: FC<ISubHeader> = () => {
 	const { platforms, volume, jettons } = useTypedSelector((state) => state)
@@ -64,7 +70,7 @@ export const SubHeader: FC<ISubHeader> = () => {
 
 	return (
 		<StyledSub>
-			<Stack direction="row" alignItems="center" gap={{ xs: gridGap.xs, md: gridGap.md, lg: gridGap.lg }}>
+			<Stack direction={{ xs: 'column', md: 'row' }} alignItems={{ xs: 'flex-start', md: 'center' }} gap={{ xs: 0, md: gridGap.md, lg: gridGap.lg }}>
 				<Stack {...paramProps}>
 					<Text>Jettons:</Text>
 					{jettons.isLoading ? <Skeleton {...skeletonProps} /> : <Span sx={{ color: 'main' }}>{jettonCount}</Span>}

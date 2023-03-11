@@ -1,14 +1,32 @@
-import { Pagination, PaginationItem, styled } from '@mui/material'
+import { css, Pagination, PaginationItem, styled } from '@mui/material'
 import { gridPageCountSelector, gridPageSelector, useGridApiContext, useGridSelector } from '@mui/x-data-grid'
 import { ChangeEvent } from 'react'
+import { bodyFontSize } from 'src/components/common/css/responsive'
 
-const StyledItem = styled(PaginationItem)`
-	border-radius: 16px !important;
-	margin: 0 8px;
-	font-size: 18px;
-	min-width: 48px;
-	height: 48px;
-`
+const StyledItem = styled(PaginationItem)(
+	({ theme }) => css`
+		border-radius: 16px !important;
+		margin: 0 8px;
+
+		@media (min-width: ${theme.breakpoints.values.xs}px) {
+			font-size: ${bodyFontSize.xs};
+			min-width: 32px;
+			height: 32px;
+		}
+
+		@media (min-width: ${theme.breakpoints.values.md}px) {
+			font-size: ${bodyFontSize.md};
+			min-width: 40px;
+			height: 40px;
+		}
+
+		@media (min-width: ${theme.breakpoints.values.lg}px) {
+			font-size: ${bodyFontSize.lg};
+			min-width: 48px;
+			height: 48px;
+		}
+	`
+)
 
 const StyledPagination = styled(Pagination)`
 	align-items: center;

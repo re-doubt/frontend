@@ -1,5 +1,6 @@
-import { Box, Link, styled, useTheme } from '@mui/material'
+import { Box, css, Link, styled, Typography, useTheme } from '@mui/material'
 import { FC } from 'react'
+import { bodyFontSize, navigationLinkFontSize } from '../css/responsive'
 
 const Logo = styled('img')`
 	width: 30px;
@@ -32,9 +33,27 @@ const links = [
 	}
 ]
 
-const StyledLink = styled(Link)`
-	text-decoration: none;
-`
+const StyledLink = styled(Link)(
+	({ theme }) => css`
+		text-decoration: none;
+
+		@media (min-width: ${theme.breakpoints.values.xs}px) {
+			font-size: ${navigationLinkFontSize.xs};
+		}
+
+		@media (min-width: ${theme.breakpoints.values.sm}px) {
+			font-size: ${navigationLinkFontSize.sm};
+		}
+
+		@media (min-width: ${theme.breakpoints.values.md}px) {
+			font-size: ${navigationLinkFontSize.md};
+		}
+
+		@media (min-width: ${theme.breakpoints.values.lg}px) {
+			font-size: ${navigationLinkFontSize.lg};
+		}
+	`
+)
 
 export const Footer: FC = ({ ...rest }) => {
 	const theme = useTheme()
