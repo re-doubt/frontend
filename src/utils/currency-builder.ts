@@ -24,7 +24,10 @@ export class CurrencyBuilder {
 	}
 
 	addPrecision(precision: number) {
-		this.formattedValue = parseFloat(this.formattedValue).toPrecision(precision)
+		const num = parseFloat(this.formattedValue)
+
+		this.formattedValue = num.toPrecision(precision).includes('e') ? num.toFixed(8) : num.toPrecision(precision)
+
 		return this
 	}
 
