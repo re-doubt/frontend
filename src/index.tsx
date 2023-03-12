@@ -6,7 +6,7 @@ import ReactGA from 'react-ga4'
 import { TRACKING_ID } from './constants/analytics'
 import { QueryClient, QueryClientProvider } from 'react-query'
 import { Home } from './pages/home'
-import { createBrowserRouter, Navigate, RouterProvider, HashRouter, createHashRouter } from 'react-router-dom'
+import { createBrowserRouter, Navigate, RouterProvider, HashRouter } from 'react-router-dom'
 import { ThemeProvider } from '@mui/material'
 import { createTheme } from '@mui/material/styles'
 import { Provider } from 'react-redux'
@@ -17,7 +17,7 @@ if (TRACKING_ID !== undefined) {
 	ReactGA.initialize(TRACKING_ID)
 }
 
-const router = createHashRouter([
+const router = createBrowserRouter([
 	{
 		path: '/',
 		element: <Home />
