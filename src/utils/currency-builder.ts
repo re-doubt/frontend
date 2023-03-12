@@ -39,6 +39,19 @@ export class CurrencyBuilder {
 		return this
 	}
 
+	addFixed(precision: number) {
+		this.formattedValue = parseFloat(this.formattedValue).toFixed(precision)
+		return this
+	}
+
+	addFixedIfTruthy(boolish: boolean, precision: number) {
+		if (boolish) {
+			this.addFixed(precision)
+		}
+
+		return this
+	}
+
 	switchCurrency(currency: SupportedCurrencies) {
 		this.currency = currency
 		return this

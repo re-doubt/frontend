@@ -48,7 +48,7 @@ export const JettonsTable: FC<ITable> = () => {
 	const isLoading = useTypedSelector((state) => state.jettons.isLoading)
 	const baseCellWidth = useBreakpointValue({ xs: 140, sm: 180, md: 200, lg: 220 })
 	const smallCellWidth = useBreakpointValue({ xs: 30, sm: 40, md: 60, lg: 80 })
-	const midCellWidth = useBreakpointValue({ xs: 100, sm: 140, md: 160, lg: 180 })
+	const midCellWidth = useBreakpointValue({ xs: 110, sm: 150, md: 170, lg: 200 })
 
 	const rows = useMemo((): GridRowsProp => {
 		return jettons.map((jetton, index) => ({
