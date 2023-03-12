@@ -72,7 +72,11 @@ export const SubHeader: FC<ISubHeader> = () => {
 		<StyledSub>
 			<Stack direction={{ xs: 'column', md: 'row' }} alignItems={{ xs: 'flex-start', md: 'center' }} gap={{ xs: 0, md: gridGap.md, lg: gridGap.lg }}>
 				<Stack {...paramProps}>
-					<Text>Jettons:</Text>
+					<Stack direction="row">
+						<Text>Jettons volume &gt;&nbsp;</Text>
+						<Price value={300} />
+						<Text>&nbsp;:</Text>
+					</Stack>
 					{jettons.isLoading ? <Skeleton {...skeletonProps} /> : <Span sx={{ color: 'main' }}>{jettonCount}</Span>}
 				</Stack>
 

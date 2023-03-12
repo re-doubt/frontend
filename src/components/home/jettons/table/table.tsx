@@ -37,9 +37,9 @@ const Wrapper = styled('div')(
 
 const ColoredText = styled('div', {
 	shouldForwardProp: (prop) => prop !== 'impact'
-})<{ percentage: number | null }>(
+})<{ percentage: string | null }>(
 	({ percentage, theme }) => `
-     color: ${getColorForPercentage(theme, percentage)};
+     color: ${getColorForPercentage(theme, percentage ? parseInt(percentage, 10) : 0)};
    `
 )
 
@@ -89,8 +89,8 @@ export const JettonsTable: FC<ITable> = () => {
 				headerName: 'Price 24h',
 				width: midCellWidth,
 				hideable: false,
-				renderCell: ({ row, value }: GridRenderCellParams<string>) => {
-					return <ColoredText percentage={row.data.price.percent}>{value ? `${value}%` : 'New 🔥'}</ColoredText>
+				renderCell: ({ value }: GridRenderCellParams<string>) => {
+					return <ColoredText percentage={value || '0'}>{value || parseInt(value!, 10) === 0 ? `${value}%` : 'New 🔥'}</ColoredText>
 				}
 			},
 			{

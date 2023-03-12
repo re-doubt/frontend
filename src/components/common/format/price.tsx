@@ -50,8 +50,8 @@ export const Price: FC<IPrice> = ({ value, percentage, isFloat = false }) => {
 
 	const { currency, currencyMultiplier } = useTypedSelector((state) => state.settings)
 	const builder = new CurrencyBuilder(numIfString(value!) * currencyMultiplier)
-	const formattedFloat = isFloat || currency !== SupportedCurrencies.TON
-	const formattedValue = builder.addPrecisionIfTruthy(formattedFloat, 2).switchCurrency(currency).build()
+	const formattedFloat = isFloat
+	const formattedValue = builder.addPrecisionIfTruthy(formattedFloat, 4).switchCurrency(currency).build()
 
 	return <>{percentage !== undefined ? <Change percentage={percentage} value={formattedValue} /> : <Text>{formattedValue}</Text>}</>
 }

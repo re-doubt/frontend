@@ -25,9 +25,19 @@ const Charts = styled('div')(
 	`
 )
 
-const ChartWrapper = styled('div')`
-	min-height: 300px;
-`
+const ChartWrapper = styled('div')(
+	({ theme }) => css`
+		min-height: 300px;
+
+		@media (min-width: ${theme.breakpoints.values.xs}px) {
+			min-height: 200px;
+		}
+
+		@media (min-width: ${theme.breakpoints.values.sm}px) {
+			min-height: 300px;
+		}
+	`
+)
 
 export const PlatformsCharts: FC = () => {
 	return (
