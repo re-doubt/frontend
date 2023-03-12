@@ -47,6 +47,8 @@ export const JettonsTable: FC<ITable> = () => {
 	const jettons = useTypedSelector((state) => state.jettons.jettons)
 	const isLoading = useTypedSelector((state) => state.jettons.isLoading)
 	const baseCellWidth = useBreakpointValue({ xs: 140, sm: 180, md: 200, lg: 220 })
+	const smallCellWidth = useBreakpointValue({ xs: 30, sm: 40, md: 60, lg: 80 })
+	const midCellWidth = useBreakpointValue({ xs: 100, sm: 140, md: 160, lg: 180 })
 
 	const rows = useMemo((): GridRowsProp => {
 		return jettons.map((jetton, index) => ({
@@ -64,7 +66,7 @@ export const JettonsTable: FC<ITable> = () => {
 	const columns = useMemo((): GridColDef => {
 		// @ts-ignore
 		return [
-			{ field: 'id', headerName: '#', width: 80, hideable: false },
+			{ field: 'id', headerName: '#', width: smallCellWidth, hideable: false },
 			{
 				field: 'name',
 				headerName: 'Jetton',
@@ -76,7 +78,7 @@ export const JettonsTable: FC<ITable> = () => {
 			{
 				field: 'price',
 				headerName: 'Price',
-				width: baseCellWidth,
+				width: midCellWidth,
 				hideable: false,
 				renderCell: ({ value }: GridRenderCellParams<string>) => {
 					return <Price isFloat={true} value={value!} />
@@ -85,7 +87,7 @@ export const JettonsTable: FC<ITable> = () => {
 			{
 				field: 'price24h',
 				headerName: 'Price 24h',
-				width: baseCellWidth,
+				width: midCellWidth,
 				hideable: false,
 				renderCell: ({ row, value }: GridRenderCellParams<string>) => {
 					return <ColoredText percentage={row.data.price.percent}>{value ? `${value}%` : 'New 🔥'}</ColoredText>

@@ -36,10 +36,17 @@ export const padding: BaseResponsiveValue = {
 }
 
 export const h1FontSize: BaseResponsiveValue = {
+	xs: '18px',
+	sm: '20px',
+	md: '22px',
+	lg: '24px'
+}
+
+export const h2FontSize: BaseResponsiveValue = {
 	xs: '16px',
 	sm: '18px',
 	md: '20px',
-	lg: '24px'
+	lg: '22px'
 }
 
 export const h3FontSize: BaseResponsiveValue = {

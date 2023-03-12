@@ -1,4 +1,4 @@
-# re:doubt
+# [📈 re:doubt App](https://app.redoubt.online/)
 
 re:doubt is a powerful tool for TON blockchain research, complete with all the tools you need to discover, explore, and visualize vast amounts of blockchain data; lets anyone, anywhere learn about crypto hacks, scams, and fraudulent activity so they can more safely participate in the growing crypto economy.
 
@@ -10,32 +10,50 @@ Required:
 -   [Yarn](https://classic.yarnpkg.com/en/docs/install/)
 -   [Git](https://git-scm.com/downloads)
 
-Make sure that:
+Recommended:
 
--   Contracts are built and deployed to a live localhost network (`contracts/yarn chain`)
--   Artifacts and .env are synced (`home/sync.sh`)
--   Backend is running
+-   [Prettier](https://prettier.io/) plugin [for your IDE](https://marketplace.visualstudio.com/items?itemName=esbenp.prettier-vscode)
 
 Install the deps and start a dev server:
 
 ```bash
 $ yarn
+$ yarn prepare
 $ yarn dev
 ```
 
 The site is now running at `http://localhost:3006`!
 Open the source code and start editing!
-Make sure your Metamask chainId is 31337. It is 1337 by default.
 
-## Architecture/Layout
+## Layout
 
-The app is written in [React](https://reactjs.org/) and [NextJS](https://nextjs.org/).
+The app is written in [React 17](https://reactjs.org/).
 
-The files/folder structure are a **WIP** and may contain some unused files. The project is rapidly evolving so please update this section if you see it is inaccurate!
+We use [Redux Toolkit](https://redux-toolkit.js.org/) for state management;
+
+[Redux Toolkit Query](https://redux-toolkit.js.org/rtk-query/overview), [React Query](https://react-query-v3.tanstack.com/) and [Axios](https://axios-http.com/) for requests;
+
+Our UI library is [MUI](https://mui.com/) and we use [emotion/styled](https://emotion.sh/docs/styled) approach for styles.
 
 ```
-./src
-├── modules/      // App logic page
-├── components/   // Common components
-└── hooks/        // Custom hooks with common logic
+./src/
+├── api/          // API clients, external data types
+├── components/   // App components
+├── constants/    // Reusable constants
+├── hooks/        // Custom hooks with common logic
+├── layouts/      // Page layouts
+├── pages/        // App pages
+├── store/        // Redux toolkit slices
+├── styles/       // Global stylesheets
+└── utils/        // Helper and utility functions
+
+./.husky/
+└── pre-commit    // Git hooks
+
+./.github/
+└── workflows/    // GitHub CI/CD jobs
+
+./public/
+├── img/          // Images to bundle
+└── meta/         // App base metadata
 ```
