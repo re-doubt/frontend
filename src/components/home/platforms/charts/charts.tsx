@@ -27,14 +27,20 @@ const Charts = styled('div')(
 
 const ChartWrapper = styled('div')(
 	({ theme }) => css`
-		min-height: 300px;
-
 		@media (min-width: ${theme.breakpoints.values.xs}px) {
-			min-height: 200px;
+			min-height: 190px;
 		}
 
 		@media (min-width: ${theme.breakpoints.values.sm}px) {
+			min-height: 250px;
+		}
+
+		@media (min-width: ${theme.breakpoints.values.md}px) {
 			min-height: 300px;
+		}
+
+		@media (min-width: ${theme.breakpoints.values.lg}px) {
+			min-height: 350px;
 		}
 	`
 )
