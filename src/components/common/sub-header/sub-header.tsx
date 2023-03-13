@@ -6,38 +6,20 @@ import { Price } from '../format/price'
 import { CurrecySelect } from './currency/select'
 import InfoIcon from '@mui/icons-material/Info'
 import { LightTooltip } from '../base/tooltip'
-import { JettonMarquee } from 'src/components/home/jettons/maquees/ranking'
-import { PlatformsMarquee } from 'src/components/home/jettons/maquees/platforms'
-
+import { JettonMarquee } from './marquees/ranking'
+import { PlatformsMarquee } from './marquees/platforms'
 interface ISubHeader {}
 
 const StyledSub = styled('section')`
 	display: flex;
 	justify-content: space-between;
 	align-items: center;
-	margin: 8px 0 0 0;
 `
 
 const Text = styled(Typography)(
 	({ theme }) => css`
 		color: ${theme.palette.text.disabled};
 		line-height: 32px;
-
-		@media (min-width: ${theme.breakpoints.values.xs}px) {
-			font-size: ${bodyFontSize.xs};
-		}
-
-		@media (min-width: ${theme.breakpoints.values.sm}px) {
-			font-size: ${bodyFontSize.sm};
-		}
-
-		@media (min-width: ${theme.breakpoints.values.md}px) {
-			font-size: ${bodyFontSize.md};
-		}
-
-		@media (min-width: ${theme.breakpoints.values.lg}px) {
-			font-size: ${bodyFontSize.lg};
-		}
 	`
 )
 
@@ -63,12 +45,25 @@ const CurrencyLabel = styled(Text)(
 	`
 )
 
-const Marquees = styled('div')`
-	display: grid;
-	align-items: center;
-	grid-template-columns: repeat(2, 1fr);
-	grid-gap: ${gridGap.lg};
-`
+const Marquees = styled('div')(
+	({ theme }) => css`
+		display: grid;
+		align-items: center;
+		grid-template-columns: repeat(2, 1fr);
+
+		@media (min-width: ${theme.breakpoints.values.xs}px) {
+			grid-gap: ${gridGap.xs};
+		}
+
+		@media (min-width: ${theme.breakpoints.values.md}px) {
+			grid-gap: ${gridGap.md};
+		}
+
+		@media (min-width: ${theme.breakpoints.values.lg}px) {
+			grid-gap: ${gridGap.lg};
+		}
+	`
+)
 
 export const SubHeader: FC<ISubHeader> = () => {
 	const { platforms, volume, jettons } = useTypedSelector((state) => state)
@@ -139,8 +134,8 @@ const skeletonProps: SkeletonProps = {
 
 const TooltipText: FC = () => {
 	return (
-		<>
+		<Typography>
 			Jettons with trading volume of more than <Price value={300} />
-		</>
+		</Typography>
 	)
 }

@@ -1,7 +1,6 @@
-import { css, styled } from '@mui/material'
+import { css, styled, Typography } from '@mui/material'
 import { FC } from 'react'
 import { StyledSection } from 'src/components/common/base/section'
-import { SubTitle } from 'src/components/common/base/subtitle'
 import { PlatformsPie } from './pie'
 import { PlatformsRadar } from './radar'
 
@@ -48,7 +47,7 @@ const ChartWrapper = styled('div')(
 export const PlatformsCharts: FC = () => {
 	return (
 		<StyledSection>
-			<SubTitle>Charts</SubTitle>
+			<Typography variant="h4">Charts</Typography>
 
 			<Charts>
 				<ChartWrapper>

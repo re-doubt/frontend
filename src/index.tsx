@@ -6,12 +6,13 @@ import ReactGA from 'react-ga4'
 import { TRACKING_ID } from './constants/analytics'
 import { QueryClient, QueryClientProvider } from 'react-query'
 import { Home } from './pages/home'
-import { createBrowserRouter, Navigate, RouterProvider, HashRouter } from 'react-router-dom'
+import { createBrowserRouter, Navigate, RouterProvider } from 'react-router-dom'
 import { ThemeProvider } from '@mui/material'
 import { createTheme } from '@mui/material/styles'
 import { Provider } from 'react-redux'
 import { store } from './store/store'
 import { Platforms } from './pages/platforms'
+import { bodyFontSize, h1FontSize, h2FontSize, h3FontSize } from './components/common/css/responsive'
 
 if (TRACKING_ID !== undefined) {
 	ReactGA.initialize(TRACKING_ID)
@@ -34,7 +35,7 @@ const router = createBrowserRouter([
 
 const queryClient = new QueryClient()
 
-const theme = createTheme({
+const defaultTheme = createTheme({
 	palette: {
 		primary: {
 			main: '#0088CC'
@@ -55,6 +56,97 @@ const theme = createTheme({
 		},
 		contrastThreshold: 3,
 		tonalOffset: 0.2
+	}
+})
+
+const { breakpoints } = defaultTheme
+
+const theme = createTheme({
+	...defaultTheme,
+	typography: {
+		fontFamily: 'Inter, sans-serif',
+		fontWeightRegular: 400,
+		fontWeightMedium: 600,
+		fontWeightBold: 600,
+		h1: {
+			fontSize: h1FontSize.lg,
+			fontWeight: 600,
+			lineHeight: 1.5,
+			[breakpoints.down('lg')]: {
+				fontSize: h1FontSize.md
+			},
+			[breakpoints.down('md')]: {
+				fontSize: h1FontSize.sm
+			},
+			[breakpoints.down('sm')]: {
+				fontSize: h1FontSize.xs
+			}
+		},
+		h2: {
+			fontSize: h2FontSize.lg,
+			fontWeight: 600,
+			lineHeight: 1.5,
+			[breakpoints.down('lg')]: {
+				fontSize: h2FontSize.md
+			},
+			[breakpoints.down('md')]: {
+				fontSize: h2FontSize.sm
+			},
+			[breakpoints.down('sm')]: {
+				fontSize: h2FontSize.xs
+			}
+		},
+		h3: {
+			fontSize: h3FontSize.lg,
+			fontWeight: 700,
+			lineHeight: 1.5,
+			[breakpoints.down('lg')]: {
+				fontSize: h3FontSize.md
+			},
+			[breakpoints.down('md')]: {
+				fontSize: h3FontSize.sm
+			},
+			[breakpoints.down('sm')]: {
+				fontSize: h3FontSize.xs
+			}
+		},
+		h4: {
+			fontSize: h3FontSize.lg,
+			fontWeight: 700,
+			lineHeight: 1.5,
+			[breakpoints.down('lg')]: {
+				fontSize: h3FontSize.md
+			},
+			[breakpoints.down('md')]: {
+				fontSize: h3FontSize.sm
+			},
+			[breakpoints.down('sm')]: {
+				fontSize: h3FontSize.xs
+			}
+		},
+		body1: {
+			fontSize: bodyFontSize.lg,
+			fontWeight: 400,
+			lineHeight: 1.5,
+			[breakpoints.down('lg')]: {
+				fontSize: bodyFontSize.md
+			},
+			[breakpoints.down('md')]: {
+				fontSize: bodyFontSize.sm
+			},
+			[breakpoints.down('sm')]: {
+				fontSize: bodyFontSize.xs
+			}
+		}
+	},
+	breakpoints: {
+		values: {
+			xs: 0,
+			sm: 360,
+			md: 768,
+			lg: 1024,
+			xl: 1280
+		}
 	}
 })
 

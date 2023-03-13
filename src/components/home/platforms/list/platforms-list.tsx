@@ -2,7 +2,6 @@ import { css, Link, Skeleton, Stack, styled, Typography } from '@mui/material'
 import { FC } from 'react'
 import { H3, H3Link } from 'src/components/common/base/h3'
 import { StyledSection } from 'src/components/common/base/section'
-import { SubTitle } from 'src/components/common/base/subtitle'
 import { h3FontSize, ResponsiveValue } from 'src/components/common/css/responsive'
 import { Price } from 'src/components/common/format/price'
 import { platformInfo } from 'src/constants/platforms'
@@ -20,7 +19,7 @@ export const PlatformsList: FC = () => {
 	if (isLoading) {
 		return (
 			<StyledSection>
-				<SubTitle>List</SubTitle>
+				<Typography variant="h4">List</Typography>
 
 				<Stack direction="column" gap={stackGap}>
 					{Array.from(Array(8)).map((el, i) => (
@@ -33,7 +32,7 @@ export const PlatformsList: FC = () => {
 
 	return (
 		<StyledSection>
-			<SubTitle>List</SubTitle>
+			<Typography variant="h4">List</Typography>
 
 			<Stack direction="column" gap={stackGap}>
 				{platforms

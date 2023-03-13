@@ -14,6 +14,12 @@ export const bodyFontSize: BaseResponsiveValue = {
 	lg: '18px'
 }
 
+export const borderRadius: BaseResponsiveValue = {
+	xs: '12px',
+	md: '16px',
+	lg: '18px'
+}
+
 export const navigationLinkFontSize: BaseResponsiveValue = {
 	xs: '14px',
 	sm: '16px',
@@ -22,10 +28,10 @@ export const navigationLinkFontSize: BaseResponsiveValue = {
 }
 
 export const gridGap: BaseResponsiveValue = {
-	xs: '16px',
-	sm: '20px',
-	md: '24px',
-	lg: '36px'
+	xs: '14px',
+	sm: '16px',
+	md: '20px',
+	lg: '24px'
 }
 
 export const padding: BaseResponsiveValue = {
@@ -54,4 +60,11 @@ export const h3FontSize: BaseResponsiveValue = {
 	sm: '16px',
 	md: '18px',
 	lg: '20px'
+}
+
+export const h4FontSize: BaseResponsiveValue = {
+	xs: '12px',
+	sm: '14px',
+	md: '16px',
+	lg: '18px'
 }
