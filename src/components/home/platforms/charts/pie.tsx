@@ -52,22 +52,14 @@ export const PlatformsPie: FC = () => {
 }
 
 let RenderCustomizedLabelLine = function (props: any) {
-	return props.value !== 0 && props.index <= 5 ? (
-		<path
-			stroke={props.stroke}
-			d={`M${props.points[0].x},${props.points[0].y}L${props.points[1].x},${props.points[1].y}`}
-			className="customized-label-line"
-		/>
-	) : (
-		<polyline stroke={props.stroke} fill="none" />
-	)
+	return <polyline stroke={props.stroke} fill="none" />
 }
 
 let RenderLabel2 = function (props: any) {
 	const RADIAN = Math.PI / 180
 	const radius = 25 + props.innerRadius + (props.outerRadius - props.innerRadius)
-	const x = props.cx + radius * Math.cos(-props.midAngle * RADIAN)
-	const y = props.cy + radius * Math.sin(-props.midAngle * RADIAN)
+	const x = props.cx + radius * Math.cos(-props.midAngle * RADIAN) * 0.9
+	const y = props.cy + radius * Math.sin(-props.midAngle * RADIAN) * 0.9
 
 	return props.value !== 0 && props.index <= 5 ? (
 		<text

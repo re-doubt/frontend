@@ -15,7 +15,6 @@ const Charts = styled('div')(
 
 		@media (min-width: ${theme.breakpoints.values.md}px) {
 			grid-gap: 14px;
-			grid-template-columns: repeat(2, 1fr);
 		}
 
 		@media (min-width: ${theme.breakpoints.values.lg}px) {
@@ -27,11 +26,11 @@ const Charts = styled('div')(
 const ChartWrapper = styled('div')(
 	({ theme }) => css`
 		@media (min-width: ${theme.breakpoints.values.xs}px) {
-			min-height: 190px;
+			min-height: 170px;
 		}
 
 		@media (min-width: ${theme.breakpoints.values.sm}px) {
-			min-height: 250px;
+			min-height: 200px;
 		}
 
 		@media (min-width: ${theme.breakpoints.values.md}px) {

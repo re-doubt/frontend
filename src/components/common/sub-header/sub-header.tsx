@@ -109,11 +109,6 @@ export const SubHeader: FC<ISubHeader> = () => {
 					<CurrecySelect />
 				</Currency>
 			</StyledSub>
-
-			<Marquees>
-				<JettonMarquee />
-				<PlatformsMarquee />
-			</Marquees>
 		</>
 	)
 }
