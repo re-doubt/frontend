@@ -12,7 +12,7 @@ import { createTheme } from '@mui/material/styles'
 import { Provider } from 'react-redux'
 import { store } from './store/store'
 import { Platforms } from './pages/platforms'
-import { bodyFontSize, h1FontSize, h2FontSize, h3FontSize } from './components/common/css/responsive'
+import { bodyFontSize, bodyFontSize2, h1FontSize, h2FontSize, h3FontSize } from './components/common/css/responsive'
 
 if (TRACKING_ID !== undefined) {
 	ReactGA.initialize(TRACKING_ID)
@@ -136,6 +136,20 @@ const theme = createTheme({
 			},
 			[breakpoints.down('sm')]: {
 				fontSize: bodyFontSize.xs
+			}
+		},
+		body2: {
+			fontSize: bodyFontSize2.lg,
+			fontWeight: 400,
+			lineHeight: 1.5,
+			[breakpoints.down('lg')]: {
+				fontSize: bodyFontSize2.md
+			},
+			[breakpoints.down('md')]: {
+				fontSize: bodyFontSize2.sm
+			},
+			[breakpoints.down('sm')]: {
+				fontSize: bodyFontSize2.xs
 			}
 		}
 	},

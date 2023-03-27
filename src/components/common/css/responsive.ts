@@ -14,6 +14,12 @@ export const bodyFontSize: BaseResponsiveValue = {
 	lg: '18px'
 }
 
+export const bodyFontSize2: BaseResponsiveValue = {
+	xs: '10px',
+	md: '12px',
+	lg: '14px'
+}
+
 export const borderRadius: BaseResponsiveValue = {
 	xs: '12px',
 	md: '16px',
