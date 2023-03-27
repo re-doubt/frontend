@@ -10,8 +10,8 @@ type BaseResponsiveValue = ResponsiveValue<string>
 export const bodyFontSize: BaseResponsiveValue = {
 	xs: '12px',
 	sm: '14px',
-	md: '16px',
-	lg: '18px'
+	md: '14px',
+	lg: '16px'
 }
 
 export const bodyFontSize2: BaseResponsiveValue = {
@@ -27,10 +27,10 @@ export const borderRadius: BaseResponsiveValue = {
 }
 
 export const navigationLinkFontSize: BaseResponsiveValue = {
-	xs: '14px',
-	sm: '16px',
-	md: '18px',
-	lg: '20px'
+	xs: '12px',
+	sm: '14px',
+	md: '16px',
+	lg: '18px'
 }
 
 export const gridGap: BaseResponsiveValue = {

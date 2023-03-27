@@ -53,11 +53,11 @@ const LogoWrapper = styled(Link)(
 	`
 )
 
-const Prefix = styled('span')(
-	({ theme }) => css`
+const Prefix = styled('span')<{ size: LogoSize }>(
+	({ theme, size }) => css`
 		font-weight: 400;
 		font-size: 12px;
-		line-height: 18px;
+		line-height: ${size === 'sm' ? '12' : '16'}px;
 		opacity: 0.5;
 		margin-left: 4px;
 		color: ${theme.palette.text.disabled};
@@ -80,7 +80,7 @@ export const Logo: FC<ILogo> = ({ size = 'md' }) => {
 			<StyledLogo size={size} src="img/common/header/logo.svg" />
 			<TitleWithPrefix>
 				<Title size={size}>re:doubt</Title>
-				<Prefix>v.0.1</Prefix>
+				<Prefix size={size}>v.0.1</Prefix>
 			</TitleWithPrefix>
 		</LogoWrapper>
 	)
