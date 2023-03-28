@@ -54,5 +54,5 @@ export const Price: FC<IPrice> = ({ value, percentage, isFloat = false }) => {
 	const isFiat = currency === SupportedCurrencies.USD && value > 1
 	const formattedValue = builder.addPrecisionIfTruthy(formattedFloat, 4).addFixedIfTruthy(isFiat, 2).switchCurrency(currency).build()
 
-	return <>{percentage !== undefined ? <Change percentage={percentage} value={formattedValue} /> : <Text>{formattedValue}</Text>}</>
+	return <>{percentage !== undefined ? <Change percentage={percentage} value={formattedValue} /> : <>{formattedValue}</>}</>
 }

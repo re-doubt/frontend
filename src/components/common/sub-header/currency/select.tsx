@@ -10,14 +10,25 @@ import { COINGECKO_API } from 'src/constants/api'
 import axios from 'axios'
 import { useDispatch } from 'react-redux'
 import { settingsActions } from 'src/store/settings-slice'
-import { bodyFontSize, padding } from '../../css/responsive'
+import { bodyFontSize, borderRadius, padding } from '../../css/responsive'
 import { useBreakpointValue } from 'src/hooks/useBreakpointValue'
 
 const StyledSelect = styled(Select)(
-	(_) => css`
+	({ theme }) => css`
 		text-decoration: none;
-		border-radius: 24px;
 		box-shadow: 8px 8px 5px rgba(0, 0, 0, 0.03);
+
+		@media (min-width: ${theme.breakpoints.values.xs}px) {
+			border-radius: ${borderRadius.xs};
+		}
+
+		@media (min-width: ${theme.breakpoints.values.md}px) {
+			border-radius: ${borderRadius.md};
+		}
+
+		@media (min-width: ${theme.breakpoints.values.lg}px) {
+			border-radius: ${borderRadius.lg};
+		}
 	`
 )
 
@@ -44,7 +55,7 @@ const StyledMenuItem = styled(MenuItem)(
 export function CurrecySelect() {
 	const [usdRate, setUsdRate] = useState(0)
 	const dispatch = useDispatch()
-	const selectSize = useBreakpointValue<'small' | 'medium'>({ xs: 'small', md: 'medium', lg: 'medium' })
+	const selectSize = useBreakpointValue<'small' | 'medium'>({ xs: 'small', md: 'small', lg: 'small' })
 
 	const { data: prices } = useQuery('ton-price', async () => {
 		return axios.get(COINGECKO_API)

@@ -20,11 +20,11 @@ const StyledPlatforms = styled('div')(
 		}
 
 		@media (min-width: ${theme.breakpoints.values.md}px) {
-			gap: ${gridGap.xs};
+			gap: ${gridGap.md};
 		}
 
 		@media (min-width: ${theme.breakpoints.values.lg}px) {
-			gap: ${gridGap.xs};
+			gap: ${gridGap.lg};
 			grid-template-columns: 1fr 2fr;
 		}
 	`

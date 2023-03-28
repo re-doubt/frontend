@@ -12,6 +12,7 @@ import { jettonsActions } from 'src/store/jettons-slice'
 import { platformsActions } from 'src/store/platforms-slice'
 import { volumeActions } from 'src/store/volume-slice'
 import { gridGap } from 'src/components/common/css/responsive'
+import { settingsActions } from 'src/store/settings-slice'
 
 interface IBaseLayout {
 	children: ReactNode
@@ -20,6 +21,7 @@ interface IBaseLayout {
 const StyledLayout = styled('div')(
 	({ theme }) => css`
 		padding: 30px 60px;
+
 		@media (max-width: ${theme.breakpoints.values.xl}px) {
 			padding: 20px 40px;
 		}
@@ -39,14 +41,17 @@ const Main = styled('main')(
 
 		@media (min-width: ${theme.breakpoints.values.xs}px) {
 			grid-gap: ${gridGap.xs};
+			padding: ${gridGap.md} 0;
 		}
 
 		@media (min-width: ${theme.breakpoints.values.md}px) {
 			grid-gap: ${gridGap.md};
+			padding: ${gridGap.md} 0;
 		}
 
 		@media (min-width: ${theme.breakpoints.values.lg}px) {
 			grid-gap: ${gridGap.lg};
+			padding: ${gridGap.lg} 0;
 		}
 	`
 )
@@ -63,6 +68,7 @@ export const BaseLayout: FC<IBaseLayout> = ({ children, ...rest }) => {
 			dispatch(platformsActions.setLoading(false))
 			dispatch(volumeActions.setVolume(data.total))
 			dispatch(volumeActions.setLoading(false))
+			dispatch(settingsActions.setMinVolume(data.minMarketVolume))
 		}
 	}, [isSuccess])
 

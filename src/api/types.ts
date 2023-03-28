@@ -22,4 +22,5 @@ export type ApiResponse = {
 	jettons: IJetton[]
 	platforms: IPlatform[]
 	total: number
+	minMarketVolume: number
 }

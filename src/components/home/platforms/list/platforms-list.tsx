@@ -1,42 +1,21 @@
 import { css, Link, Skeleton, Stack, styled, Typography } from '@mui/material'
 import { FC } from 'react'
 import { StyledSection } from 'src/components/common/base/section'
-import { SubTitle } from 'src/components/common/base/subtitle'
-import { h3FontSize, ResponsiveValue } from 'src/components/common/css/responsive'
+import { ResponsiveValue } from 'src/components/common/css/responsive'
 import { Price } from 'src/components/common/format/price'
 import { platformInfo } from 'src/constants/platforms'
 import { useTypedSelector } from 'src/store/store'
 
-const H3 = styled(Link)(
-	({ theme }) => css`
-		font-weight: 600;
-		line-height: 24px;
-		font-size: 20px;
-		text-decoration: none;
-
-		@media (min-width: ${theme.breakpoints.values.xs}px) {
-			font-size: ${h3FontSize.xs};
-		}
-
-		@media (min-width: ${theme.breakpoints.values.sm}px) {
-			font-size: ${h3FontSize.sm};
-		}
-
-		@media (min-width: ${theme.breakpoints.values.md}px) {
-			font-size: ${h3FontSize.md};
-		}
-
-		@media (min-width: ${theme.breakpoints.values.lg}px) {
-			font-size: ${h3FontSize.lg};
-		}
-	`
-)
-
 const stackGap: ResponsiveValue<string> = {
-	xs: '0',
-	md: '4px',
-	lg: '8px'
+	xs: '4px',
+	md: '8px',
+	lg: '12px'
 }
+
+const StyledLink = styled(Link)`
+	text-decoration: none;
+	line-height: 1.5;
+`
 
 export const PlatformsList: FC = () => {
 	const { platforms, isLoading } = useTypedSelector((state) => state.platforms)
@@ -44,11 +23,11 @@ export const PlatformsList: FC = () => {
 	if (isLoading) {
 		return (
 			<StyledSection>
-				<SubTitle>List</SubTitle>
+				<Typography variant="h4">List</Typography>
 
 				<Stack direction="column" gap={stackGap}>
 					{Array.from(Array(8)).map((el, i) => (
-						<Skeleton width={`${i}ch`} key={`platforms-skeleton-${i}`} />
+						<Skeleton width={`${Math.floor(Math.random() * 28)}ch`} key={`platforms-skeleton-${i}`} sx={{ lineHeight: 1.5 }} />
 					))}
 				</Stack>
 			</StyledSection>
@@ -57,15 +36,21 @@ export const PlatformsList: FC = () => {
 
 	return (
 		<StyledSection>
-			<SubTitle>List</SubTitle>
+			<Typography variant="h4">List</Typography>
 
 			<Stack direction="column" gap={stackGap}>
 				{platforms
 					.filter((el) => Object.keys(platformInfo).includes(el.name))
 					.map((platform, i) => (
 						<Stack key={`platform-${i}`} direction="row" gap="10px" alignItems="center">
-							<H3 href={platformInfo[platform.name].link}>{platformInfo[platform.name].title}</H3>
-							<Price value={platform.marketVolume} />
+							<StyledLink href={platformInfo[platform.name].link}>
+								<Typography variant="body1" color="primary.main" sx={{ lineHeight: '1.5' }}>
+									{platformInfo[platform.name].title}
+								</Typography>
+							</StyledLink>
+							<Typography variant="body1" sx={{ lineHeight: '1.5' }}>
+								<Price value={platform.marketVolume} />
+							</Typography>
 						</Stack>
 					))}
 			</Stack>
