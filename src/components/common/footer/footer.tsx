@@ -85,11 +85,11 @@ const socialLinks = [
 	},
 	{
 		item: 'Twitter',
-		link: 'https://t.me/re_doubt'
+		link: 'https://twitter.com/redoubt_web3'
 	},
 	{
 		item: 'LinkedIn',
-		link: 'https://t.me/re_doubt'
+		link: 'https://www.linkedin.com/company/re-doubt/'
 	}
 ]
 
