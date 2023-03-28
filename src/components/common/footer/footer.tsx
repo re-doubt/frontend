@@ -100,7 +100,7 @@ const projectsLinks = [
 	},
 	{
 		item: 'TONAlytica',
-		link: 'http://tonalytica.redoubt.online'
+		link: 'https://tonalytica.redoubt.online'
 	},
 	{
 		item: 'Jetton Price Alerts',
