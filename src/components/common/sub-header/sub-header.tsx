@@ -128,9 +128,11 @@ const skeletonProps: SkeletonProps = {
 }
 
 const TooltipText: FC = () => {
+	const { minVolume } = useTypedSelector((state) => state.settings)
+
 	return (
 		<Typography>
-			Jettons with trading volume of more than <Price value={300} />
+			Jettons with trading volume of more than <Price value={minVolume} />
 		</Typography>
 	)
 }

@@ -12,6 +12,7 @@ import { createTheme } from '@mui/material/styles'
 import { Provider } from 'react-redux'
 import { store } from './store/store'
 import { Platforms } from './pages/platforms'
+import { Settings } from './pages/settings'
 import { bodyFontSize, bodyFontSize2, h1FontSize, h2FontSize, h3FontSize } from './components/common/css/responsive'
 
 if (TRACKING_ID !== undefined) {

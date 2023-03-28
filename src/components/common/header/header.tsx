@@ -25,7 +25,7 @@ const StyledHeader = styled('header')`
 const Links = styled('div')(
 	({ theme }) => css`
 		display: grid;
-		grid-template-columns: repeat(2, max-content);
+		grid-template-columns: repeat(3, max-content);
 		align-items: center;
 
 		@media (min-width: ${theme.breakpoints.values.xs}px) {

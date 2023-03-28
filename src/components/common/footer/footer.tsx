@@ -1,28 +1,48 @@
 import { Box, css, Divider, Link, Stack, styled, Typography, useTheme } from '@mui/material'
 import { FC } from 'react'
-import { bodyFontSize2, gridGap } from '../css/responsive'
+import { bodyFontSize2, gridGap, gap } from '../css/responsive'
 import { Logo } from '../logo/Logo'
 
-const Grid = styled('div')`
-	display: grid;
-	grid-template-columns: 1fr 3fr;
-	grid-gap: 60px;
-	align-items: flex-start;
-`
-
-const LinksGrid = styled('div')(
+const Grid = styled('div')(
 	({ theme }) => css`
 		display: grid;
-		grid-template-columns: repeat(4, 1fr);
-		align-items: flex-start;
-		justify-items: flex-end;
+		grid-gap: 60px;
 
 		@media (min-width: ${theme.breakpoints.values.xs}px) {
 			grid-gap: ${gridGap.xs};
+			grid-template-columns: 1fr;
+			margin: 0 auto;
+			max-width: 560px;
 		}
 
 		@media (min-width: ${theme.breakpoints.values.md}px) {
 			grid-gap: ${gridGap.md};
+			grid-template-columns: 1fr 3fr;
+			align-items: flex-start;
+			max-width: initial;
+		}
+
+		@media (min-width: ${theme.breakpoints.values.lg}px) {
+			grid-gap: ${gridGap.lg};
+		}
+	`
+)
+
+const LinksGrid = styled('div')(
+	({ theme }) => css`
+		display: grid;
+		align-items: flex-start;
+
+		@media (min-width: ${theme.breakpoints.values.xs}px) {
+			grid-gap: ${gridGap.xs};
+			grid-template-columns: repeat(2, 1fr);
+			justify-items: flex-start;
+		}
+
+		@media (min-width: ${theme.breakpoints.values.md}px) {
+			grid-gap: ${gridGap.md};
+			grid-template-columns: repeat(4, 1fr);
+			justify-items: flex-end;
 		}
 
 		@media (min-width: ${theme.breakpoints.values.lg}px) {
@@ -111,8 +131,6 @@ const StyledLink = styled(Link)(
 	`
 )
 
-const gap = { xs: '4px', md: '8px', lg: '12px' }
-
 export const Footer: FC = ({ ...rest }) => {
 	const theme = useTheme()
 
@@ -142,7 +160,7 @@ export const Footer: FC = ({ ...rest }) => {
 						</Stack>
 					</Stack>
 
-					<Stack gap={gap}>
+					<Stack gap={gap} alignItems={{ xs: 'flex-end', md: 'flex-end' }} justifySelf={{ xs: 'flex-end', md: 'initial' }}>
 						<Typography variant="h4" fontSize={bodyFontSize2}>
 							EXPLORE
 						</Typography>
@@ -180,12 +198,12 @@ export const Footer: FC = ({ ...rest }) => {
 						</Stack>
 					</Stack>
 
-					<Stack gap={gap}>
+					<Stack gap={gap} alignItems={{ xs: 'flex-end', md: 'flex-end' }} justifySelf={{ xs: 'flex-end', md: 'initial' }}>
 						<Typography variant="h4" fontSize={bodyFontSize2}>
 							CONNECT
 						</Typography>
 
-						<Stack gap={gap} alignItems="flex-end">
+						<Stack gap={gap}>
 							{socialLinks.map(({ item, link }, i) => (
 								<StyledLink href={link} target="_blank" color={theme.palette.text.primary} key={`footer-link-${i}`}>
 									{item}
@@ -196,8 +214,8 @@ export const Footer: FC = ({ ...rest }) => {
 				</LinksGrid>
 			</Grid>
 			<Divider />
-			<Stack alignItems="flex-end">
-				<Typography variant="body2" color="text.disabled">
+			<Stack alignItems={{ xs: 'center', md: 'flex-end' }} justifyContent={{ base: 'center' }}>
+				<Typography variant="body2" color="text.disabled" width="fit-content">
 					re:doubt team @ 2023. All rights reserved.
 				</Typography>
 			</Stack>

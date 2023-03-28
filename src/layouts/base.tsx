@@ -12,6 +12,7 @@ import { jettonsActions } from 'src/store/jettons-slice'
 import { platformsActions } from 'src/store/platforms-slice'
 import { volumeActions } from 'src/store/volume-slice'
 import { gridGap } from 'src/components/common/css/responsive'
+import { settingsActions } from 'src/store/settings-slice'
 
 interface IBaseLayout {
 	children: ReactNode
@@ -67,6 +68,7 @@ export const BaseLayout: FC<IBaseLayout> = ({ children, ...rest }) => {
 			dispatch(platformsActions.setLoading(false))
 			dispatch(volumeActions.setVolume(data.total))
 			dispatch(volumeActions.setLoading(false))
+			dispatch(settingsActions.setMinVolume(data.minMarketVolume))
 		}
 	}, [isSuccess])
 

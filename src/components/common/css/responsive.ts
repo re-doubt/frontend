@@ -74,3 +74,5 @@ export const h4FontSize: BaseResponsiveValue = {
 	md: '16px',
 	lg: '18px'
 }
+
+export const gap: BaseResponsiveValue = { xs: '4px', md: '8px', lg: '12px' }

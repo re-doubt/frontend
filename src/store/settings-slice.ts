@@ -7,12 +7,14 @@ export const SETTINGS_FEATURE_KEY = 'settings'
 export type SettingsState = {
 	currency: SupportedCurrencies
 	currencyMultiplier: number
+	minVolume: number
 }
 
 export const initialSettingsState: SettingsState = {
 	currency: SupportedCurrencies.TON,
 	// base currency is ton, so every other is a mulitplier for asset price in TON
-	currencyMultiplier: 1
+	currencyMultiplier: 1,
+	minVolume: 300
 }
 
 export const settingsSlice = createSlice({
@@ -26,6 +28,9 @@ export const settingsSlice = createSlice({
 		resetCurrency(state) {
 			state.currency = SupportedCurrencies.TON
 			state.currencyMultiplier = 1
+		},
+		setMinVolume(state, action: PayloadAction<number>) {
+			state.minVolume = action.payload
 		}
 	}
 })
