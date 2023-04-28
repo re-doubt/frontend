@@ -11,5 +11,6 @@ export const platformInfo: Record<string, PlatformInfo> = {
 	tegro: { title: 'Tegro', link: 'https://tegro.finance/' },
 	tonrocket: { title: 'TON\u00a0Rocket', link: 'https://t.me/tonRocketBot' },
 	mexc: { title: 'MEXC', link: 'https://www.mexc.com/exchange/FNZ_USDT' },
-	gateio: { title: 'Gate.io', link: 'https://www.gate.io/trade/FNZ_USDT' }
+	gateio: { title: 'Gate.io', link: 'https://www.gate.io/trade/FNZ_USDT' },
+	tonflex: { title: 'Flex', link: 'https://tonflex.fi/' }
 }
