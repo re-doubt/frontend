@@ -54,7 +54,7 @@ const LinksGrid = styled('div')(
 const docsLinks = [
 	{
 		item: 'TONAlytica',
-		link: 'https://docs.redoubt.online/'
+		link: 'https://docs.tonalytica.redoubt.online/'
 	},
 	{
 		item: 'GitHub',
