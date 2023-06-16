@@ -12,5 +12,6 @@ export const platformInfo: Record<string, PlatformInfo> = {
 	tonrocket: { title: 'TON\u00a0Rocket', link: 'https://t.me/tonRocketBot' },
 	mexc: { title: 'MEXC', link: 'https://www.mexc.com/exchange/FNZ_USDT' },
 	gateio: { title: 'Gate.io', link: 'https://www.gate.io/trade/FNZ_USDT' },
-	tonflex: { title: 'Flex', link: 'https://tonflex.fi/' }
+	tonflex: { title: 'Flex', link: 'https://tonflex.fi/' },
+	optus: { title: 'OPTUS', link: 'https://app.optus.fi/' }
 }
